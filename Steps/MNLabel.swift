@@ -36,6 +36,7 @@ class MNLabel: UILabel {
         self.font = UIFont.init(customFont: customFont, withSize: withSize)
         self.textColor = UIColor.MNTextGray
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.adjustsFontForContentSizeCategory = true
         self.textAlignment = .left
         phaseTwo()
     }

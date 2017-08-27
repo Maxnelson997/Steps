@@ -22,12 +22,8 @@ class TaskHeaderView: UIStackView {
     }()
     
     var percentage:MNLabel = {
-        let l = MNLabel()
-        l.text = ""
-        l.textColor = UIColor.MNTextGray
-        l.backgroundColor = .clear
-        l.textAlignment = .center
-        l.font = UIFont.init(customFont: .ProximaNovaRegular, withSize: 40)
+        let l = MNLabel(customFont: .ProximaNovaRegular, withSize: 20)
+        l.text = "80"
         return l
     }()
     
@@ -75,11 +71,12 @@ class TaskHeaderView: UIStackView {
                 ])
         )
         
-        NSLayoutConstraint.activate(progressGroup.getConstraintsOfView(to: percentView))
-        NSLayoutConstraint.activate(percentage.getConstraintsOfView(to: percentView))
-        updateMainGroupProgress()
-//        NSLayoutConstraint.activate(progressGroup.getConstraintsTo(view: percentView, withInsets: .zero))
-//        NSLayoutConstraint.activate(percentage.getConstraintsTo(view: percentView, withInsets: .zero))
+//        NSLayoutConstraint.activate(progressGroup.getConstraintsOfView(to: percentView))
+//        NSLayoutConstraint.activate(percentage.getConstraintsOfView(to: percentView))
+    
+        NSLayoutConstraint.activate(progressGroup.getConstraintsTo(view: percentView, withInsets: UIEdgeInsetsMake(5, 0, 5, 5)))
+        NSLayoutConstraint.activate(percentage.getConstraintsTo(view: percentView, withInsets: UIEdgeInsetsMake(5, 0, 5, 5)))
+                updateMainGroupProgress()
     }
     
     var yeppers:Double = 0.0
@@ -90,7 +87,6 @@ class TaskHeaderView: UIStackView {
             yeppers = newValue
 
             self.progressGroup.ring1.progress = self.completionPercent
-            
             updateMainGroupProgress()
         }
     }

@@ -8,6 +8,15 @@
 
 import UIKit
 
+class EmptyCell:UICollectionViewCell {
+    override func awakeFromNib() {
+        
+    }
+    override func prepareForReuse() {
+        
+    }
+}
+
 class TaskCell: UICollectionViewCell {
     
     var taskHeaderView:TaskHeaderView = TaskHeaderView()
