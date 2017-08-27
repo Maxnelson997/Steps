@@ -31,13 +31,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Steps/TaskHeaderView.swift"
-            timestampString = "525397436.494782"
+            timestampString = "525511795.028231"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "progressLabel"
-            landmarkType = "24">
+            startingLineNumber = "217"
+            endingLineNumber = "217">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

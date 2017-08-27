@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		47480954BA42BFEDF386F924 /* Pods_StepsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC262F0EB59E42AE3AD75A6 /* Pods_StepsTests.framework */; };
+		794450421F523B7100AF39F9 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794450411F523B7100AF39F9 /* TaskHeaderView.swift */; };
+		794450471F524ED900AF39F9 /* MKRingProgressGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794450431F524ED900AF39F9 /* MKRingProgressGroupView.swift */; };
+		794450481F524ED900AF39F9 /* MKGradientGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794450441F524ED900AF39F9 /* MKGradientGenerator.swift */; };
+		794450491F524ED900AF39F9 /* MKRingProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794450461F524ED900AF39F9 /* MKRingProgressView.swift */; };
 		7987A9881F50C0EA005D9652 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7987A9871F50C0EA005D9652 /* AppDelegate.swift */; };
 		7987A98A1F50C0EA005D9652 /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7987A9891F50C0EA005D9652 /* TaskController.swift */; };
 		7987A98D1F50C0EA005D9652 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7987A98B1F50C0EA005D9652 /* Main.storyboard */; };
@@ -21,11 +25,14 @@
 		79967C451F50CB9200A6B534 /* MavenPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79967C401F50CB9200A6B534 /* MavenPro-Medium.ttf */; };
 		79967C461F50CB9200A6B534 /* MavenPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79967C411F50CB9200A6B534 /* MavenPro-Regular.ttf */; };
 		79967C471F50CB9200A6B534 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 79967C421F50CB9200A6B534 /* OFL.txt */; };
-		79967C491F50D6A800A6B534 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79967C481F50D6A800A6B534 /* TaskHeaderView.swift */; };
+		79967C491F50D6A800A6B534 /* TasksControllerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79967C481F50D6A800A6B534 /* TasksControllerHeaderView.swift */; };
 		79967C4B1F50D79600A6B534 /* MNLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79967C4A1F50D79600A6B534 /* MNLabel.swift */; };
 		79967C511F50E22E00A6B534 /* OptionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79967C501F50E22E00A6B534 /* OptionSet.swift */; };
 		79967C5B1F50FD3D00A6B534 /* Proxima Nova Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79967C561F50FD3D00A6B534 /* Proxima Nova Semibold.ttf */; };
 		79967C5C1F50FD3D00A6B534 /* Proxima Nova Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79967C571F50FD3D00A6B534 /* Proxima Nova Thin.ttf */; };
+		79CD85851F51241A0080F2F2 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CD85841F51241A0080F2F2 /* TaskCell.swift */; };
+		79CD85871F5125470080F2F2 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CD85861F5125470080F2F2 /* Model.swift */; };
+		79CD858A1F5125A60080F2F2 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CD85891F5125A60080F2F2 /* TaskModel.swift */; };
 		79D97F421F51026000640BB5 /* Proxima Nova Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79D97F3F1F5101E800640BB5 /* Proxima Nova Light.otf */; };
 		79D97F431F51026000640BB5 /* Proxima Nova Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79D97F401F5101E800640BB5 /* Proxima Nova Regular.otf */; };
 		A5BFE98A1A59AD1CD40D66DF /* Pods_Steps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B35249A4A88F40EF86E720A /* Pods_Steps.framework */; };
@@ -54,6 +61,11 @@
 		5375C7A1A9F33EFB9C711C78 /* Pods-StepsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StepsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StepsTests/Pods-StepsTests.release.xcconfig"; sourceTree = "<group>"; };
 		55C2652F857CD90C704E143E /* Pods-Steps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Steps.release.xcconfig"; path = "Pods/Target Support Files/Pods-Steps/Pods-Steps.release.xcconfig"; sourceTree = "<group>"; };
 		6BC262F0EB59E42AE3AD75A6 /* Pods_StepsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StepsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		794450411F523B7100AF39F9 /* TaskHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
+		794450431F524ED900AF39F9 /* MKRingProgressGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKRingProgressGroupView.swift; sourceTree = "<group>"; };
+		794450441F524ED900AF39F9 /* MKGradientGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKGradientGenerator.swift; sourceTree = "<group>"; };
+		794450451F524ED900AF39F9 /* MKRingProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKRingProgressView.h; sourceTree = "<group>"; };
+		794450461F524ED900AF39F9 /* MKRingProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKRingProgressView.swift; sourceTree = "<group>"; };
 		7987A9841F50C0EA005D9652 /* Steps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Steps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7987A9871F50C0EA005D9652 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7987A9891F50C0EA005D9652 /* TaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
@@ -73,11 +85,14 @@
 		79967C401F50CB9200A6B534 /* MavenPro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenPro-Medium.ttf"; sourceTree = "<group>"; };
 		79967C411F50CB9200A6B534 /* MavenPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenPro-Regular.ttf"; sourceTree = "<group>"; };
 		79967C421F50CB9200A6B534 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
-		79967C481F50D6A800A6B534 /* TaskHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
+		79967C481F50D6A800A6B534 /* TasksControllerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksControllerHeaderView.swift; sourceTree = "<group>"; };
 		79967C4A1F50D79600A6B534 /* MNLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MNLabel.swift; sourceTree = "<group>"; };
 		79967C501F50E22E00A6B534 /* OptionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionSet.swift; sourceTree = "<group>"; };
 		79967C561F50FD3D00A6B534 /* Proxima Nova Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Semibold.ttf"; sourceTree = "<group>"; };
 		79967C571F50FD3D00A6B534 /* Proxima Nova Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Thin.ttf"; sourceTree = "<group>"; };
+		79CD85841F51241A0080F2F2 /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TaskCell.swift; path = ../TaskCell.swift; sourceTree = "<group>"; };
+		79CD85861F5125470080F2F2 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		79CD85891F5125A60080F2F2 /* TaskModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		79D97F3F1F5101E800640BB5 /* Proxima Nova Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Light.otf"; sourceTree = "<group>"; };
 		79D97F401F5101E800640BB5 /* Proxima Nova Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Regular.otf"; sourceTree = "<group>"; };
 		7E194C0462ACA4F118826A8E /* Pods-StepsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StepsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StepsUITests/Pods-StepsUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -128,6 +143,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		7944504A1F524EDD00AF39F9 /* Rings */ = {
+			isa = PBXGroup;
+			children = (
+				794450431F524ED900AF39F9 /* MKRingProgressGroupView.swift */,
+				794450441F524ED900AF39F9 /* MKGradientGenerator.swift */,
+				794450451F524ED900AF39F9 /* MKRingProgressView.h */,
+				794450461F524ED900AF39F9 /* MKRingProgressView.swift */,
+			);
+			name = Rings;
+			sourceTree = "<group>";
+		};
 		7987A97B1F50C0EA005D9652 = {
 			isa = PBXGroup;
 			children = (
@@ -154,7 +180,9 @@
 			isa = PBXGroup;
 			children = (
 				7987A9871F50C0EA005D9652 /* AppDelegate.swift */,
+				7944504A1F524EDD00AF39F9 /* Rings */,
 				79967C4F1F50E22400A6B534 /* Extension */,
+				79CD85881F51254D0080F2F2 /* Model */,
 				79967C4E1F50D82000A6B534 /* Controller */,
 				79967C4D1F50D81B00A6B534 /* View */,
 				79967C4C1F50D81400A6B534 /* Framework */,
@@ -209,7 +237,9 @@
 		79967C4D1F50D81B00A6B534 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				79967C481F50D6A800A6B534 /* TaskHeaderView.swift */,
+				79967C481F50D6A800A6B534 /* TasksControllerHeaderView.swift */,
+				794450411F523B7100AF39F9 /* TaskHeaderView.swift */,
+				79CD85841F51241A0080F2F2 /* TaskCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -240,6 +270,15 @@
 				79967C571F50FD3D00A6B534 /* Proxima Nova Thin.ttf */,
 			);
 			path = Proxima_Nova;
+			sourceTree = "<group>";
+		};
+		79CD85881F51254D0080F2F2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				79CD85861F5125470080F2F2 /* Model.swift */,
+				79CD85891F5125A60080F2F2 /* TaskModel.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		87B2AF2A4AC02B0AFA16E427 /* Frameworks */ = {
@@ -544,13 +583,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79CD85871F5125470080F2F2 /* Model.swift in Sources */,
+				794450481F524ED900AF39F9 /* MKGradientGenerator.swift in Sources */,
 				7987A98A1F50C0EA005D9652 /* TaskController.swift in Sources */,
+				79CD858A1F5125A60080F2F2 /* TaskModel.swift in Sources */,
 				79967C4B1F50D79600A6B534 /* MNLabel.swift in Sources */,
 				79967C511F50E22E00A6B534 /* OptionSet.swift in Sources */,
+				794450471F524ED900AF39F9 /* MKRingProgressGroupView.swift in Sources */,
+				794450491F524ED900AF39F9 /* MKRingProgressView.swift in Sources */,
 				7987A9881F50C0EA005D9652 /* AppDelegate.swift in Sources */,
+				794450421F523B7100AF39F9 /* TaskHeaderView.swift in Sources */,
+				79CD85851F51241A0080F2F2 /* TaskCell.swift in Sources */,
 				7987A9901F50C0EA005D9652 /* Steps.xcdatamodeld in Sources */,
 				79967C3C1F50CB5200A6B534 /* Extension.swift in Sources */,
-				79967C491F50D6A800A6B534 /* TaskHeaderView.swift in Sources */,
+				79967C491F50D6A800A6B534 /* TasksControllerHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

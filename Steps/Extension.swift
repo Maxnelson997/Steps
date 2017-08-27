@@ -8,7 +8,9 @@
 
 import UIKit
 
-
+func delay(_ delay: Double, closure: @escaping ()->()) {
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+}
 
 enum CustomFont: String {
     case MavenProRegular = "MavenPro-Regular"
@@ -150,7 +152,13 @@ struct ViewMultiplier {
 }
 extension UIStackView {
     func addViewsWithCons(direction: [StackViewDirection], views:[ViewMultiplier]) -> [NSLayoutConstraint] {
-
+        
+        if direction.contains(.vertical) {
+            self.axis = .vertical
+        } else {
+            self.axis = .horizontal
+        }
+        
         var cons:[NSLayoutConstraint] = []
         var total:CGFloat = 0.0
         
@@ -158,9 +166,34 @@ extension UIStackView {
             self.addArrangedSubview(v.view)
             total += v.multiplier
             if direction.contains(.vertical) {
-                 cons.append(v.view.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: v.multiplier))
+                cons.append(v.view.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: v.multiplier))
             } else if direction.contains(.horizontal) {
-                 cons.append(v.view.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: v.multiplier))
+                cons.append(v.view.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: v.multiplier))
+            }
+        }
+        if total == 0 {
+            fatalError("Missing either StackViewDirection option or multiplier values")
+        } else if total != 1 {
+            fatalError("multipliers do not add up to 1. Multipliers need to be equal to 1 when combined, in order to fill the StackView")
+        } else {
+            print("Arranged subviews added to StackView with generated constraints successfully")
+            return cons
+        }
+        
+    }
+    
+    func addCons(direction: [StackViewDirection], views:[ViewMultiplier]) -> [NSLayoutConstraint] {
+        
+        var cons:[NSLayoutConstraint] = []
+        var total:CGFloat = 0.0
+        
+        for v in views {
+           
+            total += v.multiplier
+            if direction.contains(.vertical) {
+                cons.append(v.view.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: v.multiplier))
+            } else if direction.contains(.horizontal) {
+                cons.append(v.view.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: v.multiplier))
             }
         }
         if total == 0 {
