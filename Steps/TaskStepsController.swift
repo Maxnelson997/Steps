@@ -18,13 +18,18 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.spellCheckingType = .no
+        
         currentTextField = textField
         textField.layer.cornerRadius = 5
         let animateSize = textField.frame.width / 9
 
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 2, initialSpringVelocity: 5, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: .curveEaseIn, animations: {
             var transform = CGAffineTransform.identity
-            transform = transform.scaledBy(x: 1.25, y: 1.25)
+            transform = transform.scaledBy(x: 1.1, y: 1.1)
             transform = transform.translatedBy(x: animateSize, y: 0)
             textField.transform = transform
         }, completion: nil)
@@ -32,12 +37,13 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.layer.cornerRadius = 0
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 4, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: .curveEaseIn, animations: {
             var transform = CGAffineTransform.identity
             transform = transform.scaledBy(x: 1, y: 1)
             transform = transform.translatedBy(x: 0, y: 0)
             textField.transform = transform
         })
+        model.tasks[taskIndex].steps[textField.tag].title = textField.text
     }
     var taskIndex:Int!
     
@@ -105,7 +111,6 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     
-
 
     func InsertStep() {
         model.tasks[taskIndex].steps.append(StepModel(title: "new step: \(model.tasks[taskIndex].steps.count)", isComplete: false))

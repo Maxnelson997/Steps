@@ -73,9 +73,17 @@ class StepCell:UICollectionViewCell {
     override func awakeFromNib() {
         stepTitle.text = step.title
         tapped = step.isComplete
+        stepTitle.tag = self.tag
         if tapped == true {
             completeBubble.setFAIcon(icon: .FACheckCircle, iconSize: 25)
+            let attTitle = NSMutableAttributedString(string: stepTitle.text!)
+            //strikethrough
+            attTitle.setAttributes([NSStrikethroughStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue),NSStrikethroughColorAttributeName:UIColor.MNTextGray], range: NSRange(location: 0,length: attTitle.length))
+            stepTitle.isUserInteractionEnabled = false
+            stepTitle.alpha = 0.5
+            stepTitle.attributedText = attTitle
         }
+        
         if !exists {
             bubbleContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.completeTap)))
             viewStack.insertArrangedSubview(self.bubbleContainer, at: 0)
@@ -116,11 +124,23 @@ class StepCell:UICollectionViewCell {
     
     func completeTap() {
         tapped = !tapped
+        let attTitle = NSMutableAttributedString(string: stepTitle.text!)
         if tapped {
+            //strikethrough
+            attTitle.setAttributes([NSStrikethroughStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue),NSStrikethroughColorAttributeName:UIColor.MNTextGray], range: NSRange(location: 0,length: attTitle.length))
+            stepTitle.isUserInteractionEnabled = false
+            stepTitle.alpha = 0.5
+            stepTitle.attributedText = attTitle
             completeBubble.setFAIcon(icon: .FACheckCircle, iconSize: 25)
         } else {
+            //no strikethrough
+            attTitle.setAttributes([NSStrikethroughStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleNone.rawValue),NSForegroundColorAttributeName:UIColor.MNTextGray], range: NSRange(location: 0,length: attTitle.length))
+            stepTitle.isUserInteractionEnabled = true
+            stepTitle.alpha = 1
+            stepTitle.attributedText = attTitle
             completeBubble.setFAIcon(icon: .FACircleO, iconSize: 25)
         }
+        
         print("tapped: \(self.tapped)")
         delegate.SetStepStatus(at: self.tag, status: tapped)
     }
