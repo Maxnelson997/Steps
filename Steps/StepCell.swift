@@ -15,6 +15,15 @@ class StepCell:UICollectionViewCell {
     
     var delegate:StepProtocol!
     
+    var textDelegate:UITextFieldDelegate {
+        get {
+            return stepTitle.delegate!
+        }
+        set {
+            stepTitle.delegate = newValue
+        }
+    }
+    
     var step:StepModel!
     
     fileprivate var bubbleContainer:UIView = {
@@ -37,11 +46,22 @@ class StepCell:UICollectionViewCell {
         return l
     }()
     
-    fileprivate var stepTitle:UILabel = {
-        let l = MNLabel(customFont: .ProximaNovaLight, withSize: 25)
-        l.text = "steps to complete"
-        l.textAlignment = .left
-        return l
+//    fileprivate var stepTitle:UILabel = {
+//        let l = MNLabel(customFont: .ProximaNovaLight, withSize: 25)
+//        l.text = "steps to complete"
+//        l.textAlignment = .left
+//        return l
+//    }()
+    
+
+    fileprivate var stepTitle:UITextField = {
+        let t = UITextField()
+        t.font = UIFont.init(customFont: .ProximaNovaLight, withSize: 25)
+        t.placeholder = "Step"
+        t.translatesAutoresizingMaskIntoConstraints = false
+        t.textColor = UIColor.MNTextGray
+//        t.textAlignment = .left
+        return t
     }()
     
     fileprivate var viewStack:UIStackView = {
@@ -50,14 +70,11 @@ class StepCell:UICollectionViewCell {
         return s
     }()
     
-    
-
     override func awakeFromNib() {
         stepTitle.text = step.title
         tapped = step.isComplete
-        completeTap()
         if !exists {
-
+            bubbleContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.completeTap)))
             viewStack.insertArrangedSubview(self.bubbleContainer, at: 0)
             viewStack.insertArrangedSubview(self.titleContainer, at: 1)
             
@@ -82,8 +99,8 @@ class StepCell:UICollectionViewCell {
             NSLayoutConstraint.activate(viewStack.getConstraintsTo(view: contentView, withInsets: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)))
             NSLayoutConstraint.activate([
                 
-                bubbleContainer.widthAnchor.constraint(equalTo: viewStack.widthAnchor, multiplier: 0.3),
-                titleContainer.widthAnchor.constraint(equalTo: viewStack.widthAnchor, multiplier: 0.7),
+                bubbleContainer.widthAnchor.constraint(equalTo: viewStack.widthAnchor, multiplier: 0.1),
+                titleContainer.widthAnchor.constraint(equalTo: viewStack.widthAnchor, multiplier: 0.9),
                 
                 ])
             exists = true

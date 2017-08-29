@@ -9,16 +9,43 @@
 import UIKit
 
 
-class TaskStepsController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, StepProtocol {
+class TaskStepsController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, StepProtocol, UITextFieldDelegate {
     
+    var currentTextField:UITextField = UITextField()
     
+    func dismissTextField() {
+        currentTextField.resignFirstResponder()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        currentTextField = textField
+        textField.layer.cornerRadius = 5
+        let animateSize = textField.frame.width / 9
+
+        UIView.animate(withDuration: 0.4, animations: {
+            var transform = CGAffineTransform.identity
+            transform = transform.scaledBy(x: 1.2, y: 1.2)
+            transform = transform.translatedBy(x: animateSize, y: 0)
+            textField.transform = transform
+        })
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.cornerRadius = 0
+        var transform = CGAffineTransform.identity
+        transform = transform.scaledBy(x: 1, y: 1)
+        transform = transform.translatedBy(x: 0, y: 0)
+        UIView.animate(withDuration: 0.4, animations: {
+            textField.transform = transform
+        })
+    }
     var taskIndex:Int!
-    var task:TaskModel!
     
     let model = Model.modelInstance
     
     let stepsCollection:UICollectionView = {
         let layout = TaskLayout()
+        layout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.layer.borderColor = UIColor.darkGray.cgColor
@@ -34,16 +61,16 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
         NSLayoutConstraint.activate(stepsCollection.getConstraintsTo(view: view, withInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)))
         stepsCollection.delegate = self
         stepsCollection.dataSource = self
+        stepsCollection.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissTextField)))
         
-        task = model.tasks[taskIndex]
-        print("number of steps \(self.task.steps.count)")
+        print("number of steps \(model.tasks[taskIndex].steps.count)")
     }
     
     
     //cv data source
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return task.steps.count
+        return model.tasks[taskIndex].steps.count
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -51,8 +78,9 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StepCell", for: indexPath) as! StepCell
-        cell.step = task.steps[indexPath.item]
+        cell.step = model.tasks[taskIndex].steps[indexPath.item]
         cell.delegate = self
+        cell.textDelegate = self
         cell.tag = indexPath.item
         cell.awakeFromNib()
         return cell
@@ -60,22 +88,26 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
     
     //cv delegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 50)
+        return CGSize(width: collectionView.frame.width - 30, height: 50)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
     
     
     //step protocol
     //update status of cell
     func SetStepStatus(at: Int, status: Bool) {
-        task.steps[at].isComplete = status
-        stepsCollection.reloadData()
+        model.tasks[taskIndex].steps[at].isComplete =  status
     }
     
-    var test:Bool = false
+    
+
+
     func InsertStep() {
-        test = !test
-        task.steps.append(StepModel(title: "new step: \(task.steps.count)", isComplete: test))
-        let indexPath = IndexPath(item: task.steps.count - 1, section: 0)
+        model.tasks[taskIndex].steps.append(StepModel(title: "new step: \(model.tasks[taskIndex].steps.count)", isComplete: false))
+        let indexPath = IndexPath(item: model.tasks[taskIndex].steps.count - 1, section: 0)
         stepsCollection.performBatchUpdates({
             self.stepsCollection.insertItems(at: [indexPath])
         }, completion: { finished in
@@ -88,7 +120,7 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
     func deleteStep(at:Int) {
 
         let indexPath = IndexPath(item: at, section: 0)
-        task.steps.remove(at: at)
+        model.tasks[taskIndex].steps.remove(at: at)
         stepsCollection.performBatchUpdates({
             self.stepsCollection.deleteItems(at: [indexPath])
         }, completion: { finished in

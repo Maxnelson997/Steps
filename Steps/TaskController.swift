@@ -117,7 +117,7 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
             if indexPath.item == 0 {
                 return CGSize(width: collectionView.frame.width, height: collectionView.frame.height * 0.15)
             }
-            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height - 20) // + (CGFloat(model.tasks.count * 125))
+            return CGSize(width: collectionView.frame.width, height: 250) // + (CGFloat(model.tasks.count * 125))
         }
         return CGSize(width: 190, height: 135)
     }
