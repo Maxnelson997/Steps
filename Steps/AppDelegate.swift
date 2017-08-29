@@ -48,12 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var currentController:TaskStepsController!
     
     func NavigateToTaskSteps(taskIndex:Int) {
+        UINavigationBar.appearance().isHidden = false
         let controller = TaskStepsController()
         controller.taskIndex = taskIndex
         controller.navigationItem.titleView = makeTitle(titleText: "Steps")
         controller.navigationItem.leftBarButtonItem = barButton(icon:.FAArrowLeft, selector: #selector(self.backToTasks))
         controller.navigationItem.rightBarButtonItem = barButton(icon: .FAPlus, selector: #selector(self.insertStep))
-        navigationController.pushViewController(controller, animated: true)
+        taskNavItem.pushViewController(controller, animated: true)
         currentController = controller
     }
     
@@ -66,24 +67,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func backToTasks() {
-        navigationController.popViewController(animated: true)
+        taskNavItem.popViewController(animated: true)
         taskController.updateCollection()
     }
-    
+    var taskNavItem:UINavigationController!
     var window: UIWindow?
     var navigationController:UINavigationController!
     var taskController:TaskController!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        UINavigationBar.appearance().barTintColor = UIColor.MNGray
         
         taskController = TaskController()
         taskController.navigationItem.titleView = makeTitle(titleText: "Tasks")
         taskController.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: #imageLiteral(resourceName: "recycling-bin"), rect: CGRect(x: 0, y: 0, width: 26, height: 26)))//makeNavTextButton(text: "Edit")
         taskController.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: UIImageView(image: #imageLiteral(resourceName: "cogwheel-outline"), rect: CGRect(x: 0, y: 0, width: 26, height: 26)))
         
-        let taskNavItem = UINavigationController(rootViewController: taskController)
+        taskNavItem = UINavigationController(rootViewController: taskController)
         taskNavItem.tabBarItem.setFAIcon(icon: .FACircleO, size: nil, orientation: .up, textColor: UIColor.white, backgroundColor: UIColor.clear, selectedTextColor: UIColor.MNGreen.withAlphaComponent(1), selectedBackgroundColor: .clear)
         taskNavItem.tabBarItem.title = "Tasks"
         taskNavItem.tabBarItem.setTitleTextAttributes([NSFontAttributeName:UIFont.init(customFont: .ProximaNovaLight, withSize: 16)!, NSForegroundColorAttributeName:UIColor.white], for: .normal)
@@ -102,16 +102,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tabController = UITabBarController()
         tabController.tabBar.barTintColor = UIColor.MNGray
-        
         tabController.viewControllers = [taskNavItem, todayNavItem]
         
-        navigationController = UINavigationController()
-        navigationController.viewControllers.append(tabController)
+
         
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = navigationController
+        window?.rootViewController = tabController
         
         UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().barTintColor = UIColor.MNGray

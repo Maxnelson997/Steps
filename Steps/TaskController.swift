@@ -11,7 +11,7 @@ import UIKit
 class TaskController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     
     let model = Model.modelInstance
-    
+
     let taskHeader:UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
