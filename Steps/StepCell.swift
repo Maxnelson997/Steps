@@ -73,6 +73,9 @@ class StepCell:UICollectionViewCell {
     override func awakeFromNib() {
         stepTitle.text = step.title
         tapped = step.isComplete
+        if tapped == true {
+            completeBubble.setFAIcon(icon: .FACheckCircle, iconSize: 25)
+        }
         if !exists {
             bubbleContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.completeTap)))
             viewStack.insertArrangedSubview(self.bubbleContainer, at: 0)
@@ -118,6 +121,7 @@ class StepCell:UICollectionViewCell {
         } else {
             completeBubble.setFAIcon(icon: .FACircleO, iconSize: 25)
         }
+        print("tapped: \(self.tapped)")
         delegate.SetStepStatus(at: self.tag, status: tapped)
     }
 }

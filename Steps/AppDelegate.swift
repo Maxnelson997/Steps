@@ -67,16 +67,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func backToTasks() {
         navigationController.popViewController(animated: true)
+        taskController.updateCollection()
     }
     
     var window: UIWindow?
     var navigationController:UINavigationController!
-
+    var taskController:TaskController!
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         UINavigationBar.appearance().barTintColor = UIColor.MNGray
         
-        let taskController = TaskController()
+        taskController = TaskController()
         taskController.navigationItem.titleView = makeTitle(titleText: "Tasks")
         taskController.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: #imageLiteral(resourceName: "recycling-bin"), rect: CGRect(x: 0, y: 0, width: 26, height: 26)))//makeNavTextButton(text: "Edit")
         taskController.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: UIImageView(image: #imageLiteral(resourceName: "cogwheel-outline"), rect: CGRect(x: 0, y: 0, width: 26, height: 26)))

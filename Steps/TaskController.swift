@@ -139,7 +139,7 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func AddTask() {
-        model.tasks.append(TaskModel(isMarked: false, percentComplete: 26, stepsComplete: "2", title: "Task #\(model.tasks.count)", isComplete: false, steps: []))
+        model.tasks.append(TaskModel(isMarked: false, percentComplete: 0, stepsComplete: "0", title: "Task #\(model.tasks.count)", isComplete: false, steps: []))
 
         let indexPath = IndexPath(item: model.tasks.count - 1, section: 0)
         tasksCollection.performBatchUpdates({
@@ -148,6 +148,10 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
             self.tasksCollection.reloadData()
             self.tasksCollection.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
         })
+    }
+    
+    func updateCollection() {
+        tasksCollection.reloadData()
     }
     
 //    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

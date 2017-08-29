@@ -16,7 +16,7 @@ class TaskHeaderView: UIStackView {
     var progressGroup: MKRingProgressGroupView = {
         let progressGroup = MKRingProgressGroupView()
         progressGroup.translatesAutoresizingMaskIntoConstraints = false
-        progressGroup.ring1.progress = 0
+        progressGroup.ring1.progress = 1
         progressGroup.ringWidth = 6
         return progressGroup
     }()
@@ -87,7 +87,7 @@ class TaskHeaderView: UIStackView {
         updateMainGroupProgress()
     }
     
-    var yeppers:Double = 0.0
+    var yeppers:Double = 0
     var completionPercent:Double {
         get {
             return yeppers
@@ -111,11 +111,20 @@ class TaskHeaderView: UIStackView {
         
         self.currentText = ""
         CATransaction.begin()
+        print(completionPercent)
 
-        progressGroup.ring1.progress = self.completionPercent/100
-        newText = "\(String(describing: Int(progressGroup.ring1.progress*100)))%"
-        //        percentage.animate(toText: newText)
         
+        if completionPercent == 0.0 {
+            progressGroup.ring1.progress = 0
+        } else {
+            progressGroup.ring1.progress = self.completionPercent
+        }
+        
+        print("completion percent: \(self.completionPercent)")
+        print("progressgroup ring 1 progress: \(progressGroup.ring1.progress)")
+        newText = "\(String(describing: Int(progressGroup.ring1.progress*100)))%"
+        print("newtext: \(String(describing: Int(progressGroup.ring1.progress*100)))%")
+        //        percentage.animate(toText: newText)
         
         CATransaction.commit()
         
@@ -126,7 +135,7 @@ class TaskHeaderView: UIStackView {
     func recurse() {
         UIView.animate(withDuration: duration, animations: {
             self.percentage.text = "\(self.currentPer)%"
-            //            self.percentage.text = self.newText
+
         }, completion: { finished in
             delay(self.duration, closure: {
                 if self.percentage.text != self.newText {

@@ -43,9 +43,11 @@ class TaskCell: UICollectionViewCell {
     }()
     
     var task:TaskModel!
+    var numberComplete:Int!
     //pass in Task struct and set data this way.
     override func awakeFromNib() {
         taskHeaderView.isMarked = task.isMarked
+        task.percentComplete = Double(task.steps.filter({$0.isComplete == true}).count) / Double(task.steps.count)
         taskHeaderView.completionPercent = task.percentComplete
         if !exists {
             exists = true
@@ -67,7 +69,7 @@ class TaskCell: UICollectionViewCell {
             
         }
         
-        stepsLabel.text = "\(String(describing: task.steps.count)) steps"
+        stepsLabel.text = "\(String(describing: task.steps.count)) steps - \(String(describing: task.steps.filter({ $0.isComplete! == true }).count)) complete"
         taskTitle.text = task.title
     }
 

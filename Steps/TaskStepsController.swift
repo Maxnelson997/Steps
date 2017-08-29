@@ -22,20 +22,20 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
         textField.layer.cornerRadius = 5
         let animateSize = textField.frame.width / 9
 
-        UIView.animate(withDuration: 0.4, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 2, initialSpringVelocity: 5, options: .curveEaseIn, animations: {
             var transform = CGAffineTransform.identity
-            transform = transform.scaledBy(x: 1.2, y: 1.2)
+            transform = transform.scaledBy(x: 1.25, y: 1.25)
             transform = transform.translatedBy(x: animateSize, y: 0)
             textField.transform = transform
-        })
+        }, completion: nil)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.layer.cornerRadius = 0
-        var transform = CGAffineTransform.identity
-        transform = transform.scaledBy(x: 1, y: 1)
-        transform = transform.translatedBy(x: 0, y: 0)
-        UIView.animate(withDuration: 0.4, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 4, options: .curveEaseIn, animations: {
+            var transform = CGAffineTransform.identity
+            transform = transform.scaledBy(x: 1, y: 1)
+            transform = transform.translatedBy(x: 0, y: 0)
             textField.transform = transform
         })
     }
@@ -99,7 +99,9 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
     //step protocol
     //update status of cell
     func SetStepStatus(at: Int, status: Bool) {
-        model.tasks[taskIndex].steps[at].isComplete =  status
+        print("old status \(model.tasks[taskIndex].steps[at].isComplete)")
+        model.tasks[taskIndex].steps[at].isComplete = status
+        print("new status \(model.tasks[taskIndex].steps[at].isComplete)")
     }
     
     
@@ -111,7 +113,7 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
         stepsCollection.performBatchUpdates({
             self.stepsCollection.insertItems(at: [indexPath])
         }, completion: { finished in
-            self.stepsCollection.reloadData()
+//            self.stepsCollection.reloadData()
             self.stepsCollection.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         })
     }
