@@ -23,18 +23,24 @@ class StepCell:UICollectionViewCell {
         return v
     }()
     
+    fileprivate var titleContainer:UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
     fileprivate var completeBubble:UILabel = {
-        let l = MNLabel(customFont: .ProximaNovaLight, withSize: 15)
+        let l = MNLabel(customFont: .ProximaNovaLight, withSize: 35)
         l.text = "0"
-        l.setFAIcon(icon: .FACircleO, iconSize: 15)
+        l.setFAIcon(icon: .FACircleO, iconSize: 25)
         l.setFAColor(color: UIColor.MNGreen)
         return l
     }()
     
     fileprivate var stepTitle:UILabel = {
-        let l = MNLabel(customFont: .ProximaNovaLight, withSize: 15)
+        let l = MNLabel(customFont: .ProximaNovaLight, withSize: 25)
         l.text = "steps to complete"
-        
+        l.textAlignment = .left
         return l
     }()
     
@@ -53,7 +59,7 @@ class StepCell:UICollectionViewCell {
         if !exists {
 
             viewStack.insertArrangedSubview(self.bubbleContainer, at: 0)
-            viewStack.insertArrangedSubview(self.stepTitle, at: 1)
+            viewStack.insertArrangedSubview(self.titleContainer, at: 1)
             
             bubbleContainer.addSubview(completeBubble)
             NSLayoutConstraint.activate([
@@ -62,12 +68,22 @@ class StepCell:UICollectionViewCell {
                 completeBubble.leftAnchor.constraint(equalTo: bubbleContainer.leftAnchor)
                 ])
             
+            titleContainer.addSubview(stepTitle)
+            NSLayoutConstraint.activate([
+                stepTitle.leftAnchor.constraint(equalTo: titleContainer.leftAnchor),
+                stepTitle.rightAnchor.constraint(equalTo: titleContainer.rightAnchor),
+                stepTitle.topAnchor.constraint(equalTo: titleContainer.topAnchor),
+                stepTitle.bottomAnchor.constraint(equalTo: titleContainer.bottomAnchor),
+                stepTitle.heightAnchor.constraint(equalTo: titleContainer.heightAnchor),
+                stepTitle.widthAnchor.constraint(equalTo: titleContainer.widthAnchor)
+                ])
+            
             contentView.addSubview(viewStack)
-            NSLayoutConstraint.activate(viewStack.getConstraintsTo(view: contentView, withInsets: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)))
+            NSLayoutConstraint.activate(viewStack.getConstraintsTo(view: contentView, withInsets: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)))
             NSLayoutConstraint.activate([
                 
                 bubbleContainer.widthAnchor.constraint(equalTo: viewStack.widthAnchor, multiplier: 0.3),
-                stepTitle.widthAnchor.constraint(equalTo: viewStack.widthAnchor, multiplier: 0.7),
+                titleContainer.widthAnchor.constraint(equalTo: viewStack.widthAnchor, multiplier: 0.7),
                 
                 ])
             exists = true
@@ -81,9 +97,9 @@ class StepCell:UICollectionViewCell {
     func completeTap() {
         tapped = !tapped
         if tapped {
-            completeBubble.setFAIcon(icon: .FACheckCircle, iconSize: 15)
+            completeBubble.setFAIcon(icon: .FACheckCircle, iconSize: 25)
         } else {
-            completeBubble.setFAIcon(icon: .FACircle, iconSize: 15)
+            completeBubble.setFAIcon(icon: .FACircleO, iconSize: 25)
         }
         delegate.SetStepStatus(at: self.tag, status: tapped)
     }

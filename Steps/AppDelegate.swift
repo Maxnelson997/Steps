@@ -51,8 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let controller = TaskStepsController()
         controller.taskIndex = taskIndex
         controller.navigationItem.titleView = makeTitle(titleText: "Steps")
-        controller.navigationItem.leftBarButtonItem = barButton(icon:.FAArrowLeft, selector: #selector(self.insertStep))
-        controller.navigationItem.rightBarButtonItem = barButton(icon: .FAPlus, selector: #selector(self.removeStep))
+        controller.navigationItem.leftBarButtonItem = barButton(icon:.FAArrowLeft, selector: #selector(self.backToTasks))
+        controller.navigationItem.rightBarButtonItem = barButton(icon: .FAPlus, selector: #selector(self.insertStep))
         navigationController.pushViewController(controller, animated: true)
         currentController = controller
     }

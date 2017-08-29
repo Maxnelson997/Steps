@@ -68,6 +68,7 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
     //update status of cell
     func SetStepStatus(at: Int, status: Bool) {
         task.steps[at].isComplete = status
+        stepsCollection.reloadData()
     }
     
     var test:Bool = false
