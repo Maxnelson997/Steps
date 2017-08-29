@@ -32,21 +32,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UIBarButtonItem(customView: button)
     }
     
+    
+    func barButton(icon:FAType, selector:Selector) -> UIBarButtonItem {
+        let b = UIButton(type: .custom)
+        b.setFAIcon(icon: icon, iconSize: 30, forState: UIControlState.normal)
+//        b.setImage(image, for: .normal)
+        b.contentHorizontalAlignment = .right
+        b.frame = CGRect(x: 0, y: 0, width: 30, height: 0)
+        b.backgroundColor = .yellow
+        b.addTarget(self, action: selector, for: .touchUpInside)
+        let button = UIBarButtonItem(customView: b)
+        return button
+    }
+
+    var currentController:TaskStepsController!
+    
+    func NavigateToTaskSteps(taskIndex:Int) {
+        let controller = TaskStepsController()
+        controller.taskIndex = taskIndex
+        controller.navigationItem.titleView = makeTitle(titleText: "Steps")
+        controller.navigationItem.leftBarButtonItem = barButton(icon:.FAArrowLeft, selector: #selector(self.insertStep))
+        controller.navigationItem.rightBarButtonItem = barButton(icon: .FAPlus, selector: #selector(self.removeStep))
+        navigationController.pushViewController(controller, animated: true)
+        currentController = controller
+    }
+    
+    func insertStep() {
+        currentController.InsertStep()
+    }
+    
+    func removeStep() {
+        currentController.deleteStep(at: currentController.taskIndex)
+    }
+    
+    func backToTasks() {
+        navigationController.popViewController(animated: true)
+    }
+    
     var window: UIWindow?
+    var navigationController:UINavigationController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-                for family: String in UIFont.familyNames
-                {
-                    print("--\(family)")
-                    for names: String in UIFont.fontNames(forFamilyName: family)
-                    {
-                        print("---- \(names)")
-                    }
-                }
+
+        UINavigationBar.appearance().barTintColor = UIColor.MNGray
+        
         let taskController = TaskController()
         taskController.navigationItem.titleView = makeTitle(titleText: "Tasks")
         taskController.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: #imageLiteral(resourceName: "recycling-bin"), rect: CGRect(x: 0, y: 0, width: 26, height: 26)))//makeNavTextButton(text: "Edit")
         taskController.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: UIImageView(image: #imageLiteral(resourceName: "cogwheel-outline"), rect: CGRect(x: 0, y: 0, width: 26, height: 26)))
+        
         let taskNavItem = UINavigationController(rootViewController: taskController)
         taskNavItem.tabBarItem.setFAIcon(icon: .FACircleO, size: nil, orientation: .up, textColor: UIColor.white, backgroundColor: UIColor.clear, selectedTextColor: UIColor.MNGreen.withAlphaComponent(1), selectedBackgroundColor: .clear)
         taskNavItem.tabBarItem.title = "Tasks"
@@ -65,13 +99,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         let tabController = UITabBarController()
-         tabController.tabBar.barTintColor = UIColor.MNGray
+        tabController.tabBar.barTintColor = UIColor.MNGray
         
         tabController.viewControllers = [taskNavItem, todayNavItem]
         
+        navigationController = UINavigationController()
+        navigationController.viewControllers.append(tabController)
+        
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = tabController
+        window?.rootViewController = navigationController
         
         UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().barTintColor = UIColor.MNGray

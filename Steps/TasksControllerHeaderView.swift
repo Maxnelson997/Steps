@@ -30,11 +30,11 @@ class TasksControllerHeaderView: UIStackView {
         self.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate(
             self.addViewsWithCons(direction: [.vertical],views: [
-                ViewMultiplier(view: helloLabel, multiplier: 0.35),
-                ViewMultiplier(view: dateLabel, multiplier: 0.35),
-                ViewMultiplier(view: progressLabel, multiplier: 0.25),
-//                ViewMultiplier(view: UIView(), multiplier: 0.1),
-                ViewMultiplier(view: progressBar, multiplier: 0.05)
+//                ViewMultiplier(view: helloLabel, multiplier: 0.35),
+                ViewMultiplier(view: dateLabel, multiplier: 0.5),
+                ViewMultiplier(view: progressLabel, multiplier: 0.35),
+                ViewMultiplier(view: UIView(), multiplier: 0.05),
+                ViewMultiplier(view: progressBar, multiplier: 0.1)
                 ])
         )
         
@@ -43,13 +43,13 @@ class TasksControllerHeaderView: UIStackView {
     
     //member views - member variables
     fileprivate var helloLabel:UILabel = {
-        let l = MNLabel(customFont: .ProximaNovaLight, withSize: 45)
+        let l = MNLabel(customFont: .ProximaNovaRegular, withSize: 45)
         l.text = "Hello Max!"
         return l
     }()
     
     fileprivate var dateLabel:UILabel = {
-        let l = MNLabel(customFont: .ProximaNovaLight, withSize: 45)
+        let l = MNLabel(customFont: .ProximaNovaRegular, withSize: 45)
         l.text = "Friday 25"
         return l
     }()
@@ -59,7 +59,7 @@ class TasksControllerHeaderView: UIStackView {
         var title = NSMutableAttributedString()
             title = NSMutableAttributedString(string: "Total progress across all tasks - 74%", attributes: [NSForegroundColorAttributeName:UIColor.MNTextGray])
         print("char count: \(title.string.characters.count)")
-        title.setAttributes([NSFontAttributeName: UIFont.init(customFont: .ProximaNovaSemibold, withSize: 40)!], range: NSRange(location: title.string.characters.count - 3, length: 3))
+        title.setAttributes([NSFontAttributeName: UIFont.init(customFont: .ProximaNovaSemibold, withSize: 50)!], range: NSRange(location: title.string.characters.count - 3, length: 3))
         l.attributedText = title
         return l
     }()

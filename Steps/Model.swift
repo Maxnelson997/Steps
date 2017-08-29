@@ -12,15 +12,13 @@ class Model {
     static let modelInstance = Model()
     private init() {}
     
-    var tasks:[TaskModel] = [
-        TaskModel(isMarked: false, percentComplete: 26, stepsComplete: "2", title: "ok we gettin somewhere..", isComplete: false, steps: [StepModel(title: "step one", isComplete: false),StepModel(title: "step two", isComplete: false)]),
-        TaskModel(isMarked: false, percentComplete: 74, stepsComplete: "6", title: "ok finally", isComplete: false, steps: [StepModel(title: "step juan", isComplete: false),StepModel(title: "step of two", isComplete: false)]),
-           TaskModel(isMarked: false, percentComplete: 74, stepsComplete: "6", title: "ok finally", isComplete: false, steps: [StepModel(title: "step juan", isComplete: false),StepModel(title: "step of two", isComplete: false)]),
-                  TaskModel(isMarked: false, percentComplete: 74, stepsComplete: "6", title: "ok finally", isComplete: false, steps: [StepModel(title: "step juan", isComplete: false),StepModel(title: "step of two", isComplete: false)])
-        ,       TaskModel(isMarked: false, percentComplete: 74, stepsComplete: "6", title: "ok finally", isComplete: false, steps: [StepModel(title: "step juan", isComplete: false),StepModel(title: "step of two", isComplete: false)]),
-                       TaskModel(isMarked: false, percentComplete: 74, stepsComplete: "6", title: "ok finally", isComplete: false, steps: [StepModel(title: "step juan", isComplete: false),StepModel(title: "step of two", isComplete: false)]),
-                              TaskModel(isMarked: false, percentComplete: 74, stepsComplete: "6", title: "ok finally", isComplete: false, steps: [StepModel(title: "step juan", isComplete: false),StepModel(title: "step of two", isComplete: false)])
-    ]
+//    var tasks:[TaskModel] = [
+//        TaskModel(isMarked: false, percentComplete: 26, stepsComplete: "2", title: "ok we gettin somewhere..", isComplete: false, steps: [StepModel(title: "step one", isComplete: false),StepModel(title: "step two", isComplete: false)]),
+//        TaskModel(isMarked: false, percentComplete: 74, stepsComplete: "6", title: "ok finally", isComplete: false, steps: [StepModel(title: "step juan", isComplete: false),StepModel(title: "step of two", isComplete: false)])
+//    ]
+//    
+
+    var tasks:[TaskModel] = []
     
 
     

@@ -33,8 +33,9 @@ extension UIFont {
 
 extension UIColor {
     
-    open class var MNDarkGray: UIColor { return UIColor.init(rgb: 0x232323) }
-    open class var MNGray: UIColor { return UIColor.init(rgb: 0x525252) }
+    open class var MNDarkGray: UIColor { return UIColor.init(rgb: 0x1C1D1D) } //0x232323 //0x1D1D1D
+    open class var MNGray: UIColor { return UIColor.init(rgb:  0x292A2A) } //0x525252 //0x383939
+    open class var MNOriginalDarkGray: UIColor { return UIColor.init(rgb: 0x232323) }
     open class var MNGreen: UIColor { return UIColor.init(rgb: 0x5CFF90) }
     open class var MNBlue: UIColor { return UIColor.init(rgb: 0x7ECDFD) }
     open class var MNTextGray: UIColor { return UIColor.init(rgb: 0xFEFDFE) } 

@@ -17,29 +17,30 @@ class TaskHeaderView: UIStackView {
         let progressGroup = MKRingProgressGroupView()
         progressGroup.translatesAutoresizingMaskIntoConstraints = false
         progressGroup.ring1.progress = 0
-        progressGroup.ringWidth = 8
+        progressGroup.ringWidth = 6
         return progressGroup
     }()
     
     var percentage:MNLabel = {
         let l = MNLabel(customFont: .ProximaNovaRegular, withSize: 20)
         l.text = "80"
+        l.textAlignment = .center
         return l
+    }()
+    
+    var actualMarkedButton:UIButton = {
+        let b = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
+        b.layer.borderColor = UIColor.MNBlue.cgColor
+        b.layer.borderWidth = 2
+        b.layer.masksToBounds = true
+        b.layer.cornerRadius = 2
+        b.translatesAutoresizingMaskIntoConstraints = false
+        return b
     }()
     
     var markedButton:UIView = {
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
-        container.isUserInteractionEnabled = false
-        let b = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
-        b.backgroundColor = UIColor.MNBlue
-        b.layer.borderColor = UIColor.MNBlue.cgColor
-        b.layer.borderWidth = 4
-        b.layer.masksToBounds = true
-        b.layer.cornerRadius = 4
-        b.translatesAutoresizingMaskIntoConstraints = false
-        container.addSubview(b)
-        NSLayoutConstraint.activate([b.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -5), b.topAnchor.constraint(equalTo: container.topAnchor, constant: 5), b.widthAnchor.constraint(equalToConstant: 30), b.heightAnchor.constraint(equalToConstant: 15)])
         return container
     }()
     
@@ -59,7 +60,13 @@ class TaskHeaderView: UIStackView {
     
     func phaseTwo() {
         percentView.addSubview(progressGroup)
-        percentView.addSubview(percentage)
+        progressGroup.addSubview(percentage)
+        
+        markedButton.addSubview(actualMarkedButton)
+        actualMarkedButton.addTarget(self, action: #selector(self.animateMarking), for: .touchUpInside)
+        NSLayoutConstraint.activate([actualMarkedButton.rightAnchor.constraint(equalTo: markedButton.rightAnchor, constant: -5), actualMarkedButton.topAnchor.constraint(equalTo: markedButton.topAnchor, constant: 5), actualMarkedButton.widthAnchor.constraint(equalToConstant: 30), actualMarkedButton.heightAnchor.constraint(equalToConstant: 15)])
+       
+
 //          percentView.backgroundColor = UIColor.orange.withAlphaComponent(0.3)
         self.axis = .vertical
         self.backgroundColor = UIColor.orange.withAlphaComponent(0.5)
@@ -75,8 +82,9 @@ class TaskHeaderView: UIStackView {
 //        NSLayoutConstraint.activate(percentage.getConstraintsOfView(to: percentView))
     
         NSLayoutConstraint.activate(progressGroup.getConstraintsTo(view: percentView, withInsets: UIEdgeInsetsMake(5, 0, 5, 5)))
-        NSLayoutConstraint.activate(percentage.getConstraintsTo(view: percentView, withInsets: UIEdgeInsetsMake(5, 0, 5, 5)))
-                updateMainGroupProgress()
+        NSLayoutConstraint.activate(percentage.getConstraintsTo(view: progressGroup, withInsets: UIEdgeInsetsMake(0, 0, 0, 0)))
+        
+        updateMainGroupProgress()
     }
     
     var yeppers:Double = 0.0
@@ -142,18 +150,20 @@ class TaskHeaderView: UIStackView {
         get {
             return yep
         } set {
-            yep = newValue
+            yep = !newValue
             animateMarking()
         }
     }
     
     func animateMarking() {
+        yep = !yep
         if yep {
-            markedButton.backgroundColor = UIColor.MNBlue
+            actualMarkedButton.backgroundColor = UIColor.MNBlue
         } else {
-            markedButton.backgroundColor = UIColor.clear
+            actualMarkedButton.backgroundColor = UIColor.clear
         }
     }
-
+    
+    
 
 }
