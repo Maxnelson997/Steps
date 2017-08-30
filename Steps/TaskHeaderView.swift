@@ -16,7 +16,7 @@ class TaskHeaderView: UIStackView {
     var progressGroup: MKRingProgressGroupView = {
         let progressGroup = MKRingProgressGroupView()
         progressGroup.translatesAutoresizingMaskIntoConstraints = false
-        progressGroup.ring1.progress = 1
+        progressGroup.ring1.progress = 0
         progressGroup.ringWidth = 6
         return progressGroup
     }()
@@ -119,6 +119,7 @@ class TaskHeaderView: UIStackView {
         } else {
             progressGroup.ring1.progress = self.completionPercent
         }
+       
         
         print("completion percent: \(self.completionPercent)")
         print("progressgroup ring 1 progress: \(progressGroup.ring1.progress)")

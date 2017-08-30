@@ -31,11 +31,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Steps/TaskHeaderView.swift"
-            timestampString = "525731989.103098"
+            timestampString = "525735796.892552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232">
+            startingLineNumber = "233"
+            endingLineNumber = "233">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -60,13 +60,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Steps/TaskHeaderView.swift"
-            timestampString = "525731751.49821"
+            filePath = "Steps/StepCell.swift"
+            timestampString = "525734479.642942"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "updateMainGroupProgress()"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "completeTap()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -76,13 +76,45 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Steps/StepCell.swift"
-            timestampString = "525734479.642942"
+            filePath = "Steps/TaskHeaderView.swift"
+            timestampString = "525735796.892552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
-            landmarkName = "completeTap()"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "updateMainGroupProgress()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Steps/TaskHeaderView.swift"
+            timestampString = "525735662.139946"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "updateMainGroupProgress()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Steps/TaskHeaderView.swift"
+            timestampString = "525735664.996501"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "updateMainGroupProgress()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

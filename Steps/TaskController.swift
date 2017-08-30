@@ -12,12 +12,10 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
     
     let model = Model.modelInstance
 
+    var t:TasksControllerHeaderView!
     let taskHeader:UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
-        let t = TasksControllerHeaderView()
-        v.addSubview(t)
-        NSLayoutConstraint.activate(t.getConstraintsTo(view: v, withInsets: UIEdgeInsetsMake(0, 10, 0, 10)))
         return v
     }()
 
@@ -61,6 +59,10 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        t = TasksControllerHeaderView()
+        taskHeader.addSubview(t)
+        NSLayoutConstraint.activate(t.getConstraintsTo(view: taskHeader, withInsets: UIEdgeInsetsMake(0, 10, 0, 10)))
+        
         mainCollection.backgroundColor = UIColor.init(rgb: 0x232323)
         view.backgroundColor = UIColor.init(rgb: 0x232323)
         view.addSubview(mainCollection)
@@ -152,6 +154,14 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
     
     func updateCollection() {
         tasksCollection.reloadData()
+        var totalStepsComplete:Double = 0
+        var totalSteps:Double = 0
+        for task in model.tasks {
+            totalStepsComplete += Double(task.steps.filter({$0.isComplete == true}).count)
+            totalSteps += Double(task.steps.count)
+        }
+        t.totalPercent = (totalStepsComplete / totalSteps) * 100.0
+       
     }
     
 //    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

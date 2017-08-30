@@ -64,6 +64,32 @@ class TasksControllerHeaderView: UIStackView {
         return l
     }()
     
+    func generateNewAttributedLabel() -> NSMutableAttributedString {
+        var rangeLength:Int = 3
+        if self.hmm == 100 {
+            rangeLength = 4
+        }
+        let title = NSMutableAttributedString(string: "progress across all tasks - \(String(describing: Int(self.hmm)))%", attributes: [NSForegroundColorAttributeName:UIColor.MNTextGray])
+        title.setAttributes([NSFontAttributeName: UIFont.init(customFont: .ProximaNovaSemibold, withSize: 50)!], range: NSRange(location: title.string.characters.count - rangeLength, length: rangeLength))
+        return title
+    }
+    
+    
+    var hmm:Double = 0.0
+    
+    
+
+
+    var totalPercent:Double {
+        set {
+            self.hmm = newValue
+            self.progressLabel.attributedText = generateNewAttributedLabel()
+        }
+        get {
+            return hmm
+        }
+    }
+    
     fileprivate var progressBar:UIView = {
         let l = MNLabel(customFont: .ProximaNovaLight, withSize: 18)
         l.layer.cornerRadius = 4
