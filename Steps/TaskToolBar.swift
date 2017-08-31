@@ -29,7 +29,7 @@ class TaskToolBar:UIToolbar {
     var deli:TaskProtocol!
     
     let recycleImage = UIImageView(image: #imageLiteral(resourceName: "recycling-bin"), rect: CGRect(x: 0, y: 0, width: 26, height: 26))
-    let plusImage = UIImageView(image: #imageLiteral(resourceName: "add-button"), rect: CGRect(x: 0, y: 0, width: 26, height: 26))
+    let plusImage = UIImageView(image: #imageLiteral(resourceName: "plus"), rect: CGRect(x: 0, y: 0, width: 26, height: 26))
     var recycleButton:UIBarButtonItem!
     var plusButton:UIBarButtonItem!
     let flexspace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)

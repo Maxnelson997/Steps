@@ -20,16 +20,37 @@ class EmptyCell:UICollectionViewCell {
 
 class TaskCell: UICollectionViewCell {
     
+    var isShakey:Bool = false
+    func recurseAnimation() {
+        
+        UIView.animate(withDuration: 0.5, animations: {
+//            self.transform = CGAffineTransform(rotationAngle: 350)
+            self.transform = CGAffineTransform(translationX: -10, y: 0)
+        }, completion: { finished in
+            UIView.animate(withDuration: 0.5, animations: {
+//                self.transform = CGAffineTransform(rotationAngle: 370)
+                self.transform = CGAffineTransform(translationX: 10, y: 0)
+            }, completion: { finished in
+                if self.isShakey {
+                    self.recurseAnimation()
+                } else {
+//                    self.transform = CGAffineTransform(rotationAngle: -180)
+                    self.transform = CGAffineTransform(translationX: 0, y: 0)
+                }
+            })
+        })
+    }
+    
     var taskHeaderView:TaskHeaderView = TaskHeaderView()
     var exists:Bool = false
-    fileprivate var stepsLabel:UILabel = {
+    var stepsLabel:UILabel = {
         let l = MNLabel(customFont: .ProximaNovaLight, withSize: 15)
         l.text = "steps label"
         
         return l
     }()
     
-    fileprivate var taskTitle:UILabel = {
+    var taskTitle:UILabel = {
         let l = MNLabel(customFont: .ProximaNovaLight, withSize: 15)
         l.text = "task title"
 

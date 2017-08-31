@@ -26,6 +26,7 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
         cv.layer.borderColor = UIColor.darkGray.cgColor
         cv.register(TaskCell.self, forCellWithReuseIdentifier: "TaskCell")
         cv.backgroundColor = .clear
+        cv.showsHorizontalScrollIndicator = false
 //        cv.register(TaskCollectionHeaderView.self, forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: "TasksHeader")
         return cv
     }()
@@ -73,8 +74,8 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
         mainCollection.delegate = self
         mainCollection.dataSource = self
         
-        
-        
+    
+//        self.taskHeader.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.InsertTask)))
     }
 
     
@@ -113,8 +114,27 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TaskCell", for: indexPath) as! TaskCell
         cell.task = model.tasks[indexPath.row]
         cell.awakeFromNib()
+        cell.isShakey = self.isRemovingCells
+        if self.isRemovingCells {
+            cell.recurseAnimation()
+            UIView.animate(withDuration: 0.3, animations: {
+                cell.taskHeaderView.markedButton.alpha = 1
+                cell.taskHeaderView.progressGroup.alpha = 0.5
+                cell.stepsLabel.alpha = 0.5
+            })
+            
+        } else {
+            UIView.animate(withDuration: 0.3, animations: {
+                cell.taskHeaderView.markedButton.alpha = 0
+                cell.taskHeaderView.progressGroup.alpha = 1
+                cell.stepsLabel.alpha = 1
+            })
+            
+        }
         return cell
     }
+    
+
     
     //cv delegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -122,17 +142,24 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
             if indexPath.item == 0 {
                 return CGSize(width: collectionView.frame.width, height: collectionView.frame.height * 0.2)
             }
-            return CGSize(width: collectionView.frame.width, height: 250) // + (CGFloat(model.tasks.count * 125))
+            return CGSize(width: collectionView.frame.width, height: 135) // + (CGFloat(model.tasks.count * 125))
         }
         return CGSize(width: 190, height: 135)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        (UIApplication.shared.delegate as! AppDelegate).NavigateToTaskSteps(taskIndex: indexPath.item)
+        if collectionView == tasksCollection {
+            (UIApplication.shared.delegate as! AppDelegate).NavigateToTaskSteps(taskIndex: indexPath.item)
+        }
     }
+    
+    var isRemovingCells:Bool = false
     
     func RemoveTask() {
         print("hmm")
+        isRemovingCells = !isRemovingCells
+        self.tasksCollection.reloadData()
+        //reload data to show or remove shakey animation
     }
     //insertion and deletion
     func DeleteTask(at:Int) {

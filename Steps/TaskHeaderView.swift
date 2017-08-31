@@ -30,7 +30,8 @@ class TaskHeaderView: UIStackView {
     
     var actualMarkedButton:UIButton = {
         let b = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
-        b.layer.borderColor = UIColor.MNBlue.cgColor
+//        b.layer.borderColor = UIColor.MNBlue.cgColor
+        b.layer.borderColor = UIColor.red.cgColor
         b.layer.borderWidth = 2
         b.layer.masksToBounds = true
         b.layer.cornerRadius = 2
@@ -168,7 +169,7 @@ class TaskHeaderView: UIStackView {
     func animateMarking() {
         yep = !yep
         if yep {
-            actualMarkedButton.backgroundColor = UIColor.MNBlue
+            actualMarkedButton.backgroundColor = .red//UIColor.MNBlue
         } else {
             actualMarkedButton.backgroundColor = UIColor.clear
         }

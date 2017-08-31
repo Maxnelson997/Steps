@@ -64,7 +64,7 @@ class TasksControllerHeaderView: UIStackView {
     fileprivate var progressLabel:MNLabel = {
         let l = MNLabel(customFont: .ProximaNovaLight, withSize: 25)
         var title = NSMutableAttributedString()
-            title = NSMutableAttributedString(string: "Total progress across all tasks - 74%", attributes: [NSForegroundColorAttributeName:UIColor.MNTextGray])
+            title = NSMutableAttributedString(string: "Total progress across all tasks - 0%", attributes: [NSForegroundColorAttributeName:UIColor.MNTextGray])
         print("char count: \(title.string.characters.count)")
         title.setAttributes([NSFontAttributeName: UIFont.init(customFont: .ProximaNovaSemibold, withSize: 50)!], range: NSRange(location: title.string.characters.count - 3, length: 3))
         l.attributedText = title
