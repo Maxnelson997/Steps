@@ -25,17 +25,27 @@ class TaskCell: UICollectionViewCell {
         
         UIView.animate(withDuration: 0.5, animations: {
 //            self.transform = CGAffineTransform(rotationAngle: 350)
-            self.transform = CGAffineTransform(translationX: -10, y: 0)
+            self.taskHeaderView.progressGroup.transform = CGAffineTransform(translationX: -10, y: 0)
+            self.taskHeaderView.percentage.transform = CGAffineTransform(translationX: -10, y: 0)
+            self.stepsLabel.transform  = CGAffineTransform(translationX: -10, y: 0)
+            self.taskTitle.transform  = CGAffineTransform(translationX: -10, y: 0)
         }, completion: { finished in
             UIView.animate(withDuration: 0.5, animations: {
 //                self.transform = CGAffineTransform(rotationAngle: 370)
-                self.transform = CGAffineTransform(translationX: 10, y: 0)
+                self.taskHeaderView.percentage.transform  = CGAffineTransform(translationX: 10, y: 0)
+                self.taskHeaderView.progressGroup.transform  = CGAffineTransform(translationX: 10, y: 0)
+                self.stepsLabel.transform  = CGAffineTransform(translationX: 10, y: 0)
+                self.taskTitle.transform  = CGAffineTransform(translationX: 10, y: 0)
+                
             }, completion: { finished in
                 if self.isShakey {
                     self.recurseAnimation()
                 } else {
 //                    self.transform = CGAffineTransform(rotationAngle: -180)
-                    self.transform = CGAffineTransform(translationX: 0, y: 0)
+                    self.taskHeaderView.progressGroup.transform  = CGAffineTransform(translationX: 0, y: 0)
+                    self.taskHeaderView.percentage.transform  = CGAffineTransform(translationX: 0, y: 0)
+                    self.stepsLabel.transform  = CGAffineTransform(translationX: 0, y: 0)
+                    self.taskTitle.transform  = CGAffineTransform(translationX: 0, y: 0)
                 }
             })
         })

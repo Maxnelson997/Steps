@@ -192,7 +192,12 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
             totalStepsComplete += Double(task.steps.filter({$0.isComplete == true}).count)
             totalSteps += Double(task.steps.count)
         }
-        t.totalPercent = (totalStepsComplete / totalSteps) * 100.0
+        if totalSteps == 0 {
+            t.totalPercent = 0
+        } else {
+            t.totalPercent = (totalStepsComplete / totalSteps) * 100.0
+        }
+        
     }
     
     
