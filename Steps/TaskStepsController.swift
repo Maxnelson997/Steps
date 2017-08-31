@@ -49,27 +49,64 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
     
     let model = Model.modelInstance
     
+    fileprivate var viewStack:UIStackView = {
+       let viewStack = UIStackView()
+        viewStack.translatesAutoresizingMaskIntoConstraints = false
+        viewStack.axis = .vertical
+        return viewStack
+    }()
+    
+    
+    var headerView:StepsControllerHeaderViewReusableView = StepsControllerHeaderViewReusableView()
+    
     let stepsCollection:UICollectionView = {
-        let layout = TaskLayout()
-        layout.scrollDirection = .vertical
+        let layout = StepLayout()
+
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.layer.borderColor = UIColor.darkGray.cgColor
         cv.register(StepCell.self, forCellWithReuseIdentifier: "StepCell")
-        cv.backgroundColor = .clear
+        cv.backgroundColor = UIColor.MNGray
+        cv.layer.cornerRadius = 10
+        cv.layer.masksToBounds = true
+//        cv.register(StepsControllerHeaderViewReusableView.self, forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: "StepsHeader")
         return cv
     }()
     
     override func viewDidLoad() {
+        updateHeaderView()
         view.backgroundColor = UIColor.MNOriginalDarkGray
-        stepsCollection.backgroundColor = UIColor.MNOriginalDarkGray
-        view.addSubview(stepsCollection)
-        NSLayoutConstraint.activate(stepsCollection.getConstraintsTo(view: view, withInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)))
+//        stepsCollection.backgroundColor = UIColor.MNOriginalDarkGray
+        view.addSubview(viewStack)
+        viewStack.addArrangedSubview(headerView)
+        viewStack.addArrangedSubview(stepsCollection)
+        NSLayoutConstraint.activate(viewStack.getConstraintsTo(view: view, withInsets: UIEdgeInsets(top: 60, left: 15, bottom: 60, right: 15)))
+        NSLayoutConstraint.activate([
+            headerView.heightAnchor.constraint(equalTo: viewStack.heightAnchor, multiplier: 0.35),
+            stepsCollection.heightAnchor.constraint(equalTo: viewStack.heightAnchor, multiplier: 0.65)
+            ])
         stepsCollection.delegate = self
         stepsCollection.dataSource = self
         stepsCollection.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissTextField)))
-        
         print("number of steps \(model.tasks[taskIndex].steps.count)")
+    }
+    
+    func updateHeaderView() {
+        model.tasks[taskIndex].stepsComplete = String(model.tasks[taskIndex].steps.filter({$0.isComplete == true}).count)
+        model.tasks[taskIndex].percentComplete = Double(model.tasks[taskIndex].steps.filter({$0.isComplete == true}).count) / Double(model.tasks[taskIndex].steps.count)
+        //
+        headerView.title = model.tasks[taskIndex].title
+        headerView.steps = "\(model.tasks[taskIndex].steps.count) steps - \(model.tasks[taskIndex].stepsComplete!) complete"
+        headerView.percentage = model.tasks[taskIndex].percentComplete
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            if self.model.tasks[self.taskIndex].percentComplete == 1 {
+                self.headerView.percentageColor = UIColor.MNGreen
+            } else {
+                self.headerView.percentageColor = UIColor.white
+            }
+        })
+
     }
     
     
@@ -88,29 +125,49 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
         cell.delegate = self
         cell.textDelegate = self
         cell.tag = indexPath.item
+        cell.backgroundColor = UIColor.MNGray
         cell.awakeFromNib()
         return cell
     }
     
     //cv delegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 30, height: 50)
+        return CGSize(width: collectionView.frame.width, height: 60)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
-    
-    
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        switch kind {
+//        case UICollectionElementKindSectionHeader:
+//            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "StepsHeader", for: indexPath) as! StepsControllerHeaderViewReusableView
+//            header.awakeFromNib()
+//            //
+//            model.tasks[taskIndex].stepsComplete = String(model.tasks[taskIndex].steps.filter({$0.isComplete == true}).count)
+//            model.tasks[taskIndex].percentComplete = Double(model.tasks[taskIndex].steps.filter({$0.isComplete == true}).count) / Double(model.tasks[taskIndex].steps.count)
+//            //
+//            header.title = model.tasks[taskIndex].title
+//            header.steps = "\(model.tasks[taskIndex].steps.count) steps - \(model.tasks[taskIndex].stepsComplete!) complete"
+//            header.percentage = model.tasks[taskIndex].percentComplete
+//            
+//            return header
+//        default:
+//            break
+//        }
+//        return UICollectionReusableView()
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height * 0.3)
+//    }
+//    
+//    
     //step protocol
     //update status of cell
     func SetStepStatus(at: Int, status: Bool) {
         print("old status \(model.tasks[taskIndex].steps[at].isComplete)")
         model.tasks[taskIndex].steps[at].isComplete = status
         print("new status \(model.tasks[taskIndex].steps[at].isComplete)")
+        updateHeaderView()
     }
-    
-    
 
     func InsertStep() {
         model.tasks[taskIndex].steps.append(StepModel(title: "new step: \(model.tasks[taskIndex].steps.count)", isComplete: false))
@@ -121,6 +178,7 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
 //            self.stepsCollection.reloadData()
             self.stepsCollection.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         })
+        self.updateHeaderView()
     }
     
     

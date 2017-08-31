@@ -75,6 +75,8 @@ class StepCell:UICollectionViewCell {
         tapped = step.isComplete
         stepTitle.tag = self.tag
         if tapped == true {
+            self.layer.masksToBounds = true
+            self.layer.cornerRadius = 5
             completeBubble.setFAIcon(icon: .FACheckCircle, iconSize: 25)
             let attTitle = NSMutableAttributedString(string: stepTitle.text!)
             //strikethrough
@@ -91,8 +93,8 @@ class StepCell:UICollectionViewCell {
             
             bubbleContainer.addSubview(completeBubble)
             NSLayoutConstraint.activate([
-                completeBubble.widthAnchor.constraint(equalTo: bubbleContainer.heightAnchor, multiplier: 1),
-                completeBubble.heightAnchor.constraint(equalTo: bubbleContainer.heightAnchor, multiplier: 1),
+                completeBubble.topAnchor.constraint(equalTo: bubbleContainer.topAnchor),
+                completeBubble.bottomAnchor.constraint(equalTo: bubbleContainer.bottomAnchor),
                 completeBubble.leftAnchor.constraint(equalTo: bubbleContainer.leftAnchor)
                 ])
             
@@ -107,7 +109,7 @@ class StepCell:UICollectionViewCell {
                 ])
             
             contentView.addSubview(viewStack)
-            NSLayoutConstraint.activate(viewStack.getConstraintsTo(view: contentView, withInsets: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)))
+            NSLayoutConstraint.activate(viewStack.getConstraintsTo(view: contentView, withInsets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)))
             NSLayoutConstraint.activate([
                 
                 bubbleContainer.widthAnchor.constraint(equalTo: viewStack.widthAnchor, multiplier: 0.1),

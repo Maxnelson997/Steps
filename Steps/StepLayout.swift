@@ -1,21 +1,22 @@
 //
-//  TaskLayout.swift
+//  StepLayout.swift
 //  Steps
 //
-//  Created by Max Nelson on 8/29/17.
+//  Created by Max Nelson on 8/30/17.
 //  Copyright © 2017 Max Nelson. All rights reserved.
 //
 
 import UIKit
 
-class TaskLayout: UICollectionViewFlowLayout {
+class StepLayout: UICollectionViewFlowLayout {
     
     override init() {
         super.init()
-        self.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        self.scrollDirection = .vertical
+        self.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.minimumLineSpacing = 0
         self.sectionFootersPinToVisibleBounds = true
         self.sectionHeadersPinToVisibleBounds = true
-        self.minimumLineSpacing = 20
         self.scrollDirection = .horizontal
     }
     
@@ -50,12 +51,7 @@ class TaskLayout: UICollectionViewFlowLayout {
         
         if insertingIndexPaths.contains(itemIndexPath) {
             attributes?.alpha = 0
-            if !everyother {
-                attributes?.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-            } else {
-                attributes?.transform = CGAffineTransform(translationX: 1000, y: 0)
-            }
-//            everyother = !everyother
+            attributes?.transform = CGAffineTransform(translationX: 0, y: 500)
         }
         
         return attributes

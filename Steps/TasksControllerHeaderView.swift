@@ -23,33 +23,40 @@ class TasksControllerHeaderView: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     
     func phaseTwo() {
         self.axis = .vertical
         self.backgroundColor = UIColor.orange.withAlphaComponent(0.5)
         self.translatesAutoresizingMaskIntoConstraints = false
+      
+      
         NSLayoutConstraint.activate(
             self.addViewsWithCons(direction: [.vertical],views: [
 //                ViewMultiplier(view: helloLabel, multiplier: 0.35),
-                ViewMultiplier(view: dateLabel, multiplier: 0.5),
-                ViewMultiplier(view: progressLabel, multiplier: 0.35),
-                ViewMultiplier(view: UIView(), multiplier: 0.05),
-                ViewMultiplier(view: progressBar, multiplier: 0.1)
+                ViewMultiplier(view: UIView(), multiplier: 0.1),
+                ViewMultiplier(view: progressLabel, multiplier: 0.3),
+                ViewMultiplier(view: UIView(), multiplier: 0.1),
+                ViewMultiplier(view: progressBar, multiplier: 0.1),
+                ViewMultiplier(view: UIView(), multiplier: 0.1),
+                ViewMultiplier(view: bar, multiplier: 0.3),
+                
                 ])
         )
         
-
     }
+    
+    fileprivate var bar = TaskToolBar()
     
     //member views - member variables
     fileprivate var helloLabel:UILabel = {
-        let l = MNLabel(customFont: .ProximaNovaRegular, withSize: 45)
+        let l = MNLabel(customFont: .ProximaNovaRegular, withSize: 35)
         l.text = "Hello Max!"
         return l
     }()
     
     fileprivate var dateLabel:UILabel = {
-        let l = MNLabel(customFont: .ProximaNovaRegular, withSize: 45)
+        let l = MNLabel(customFont: .ProximaNovaRegular, withSize: 35)
         l.text = "Friday 25"
         return l
     }()
@@ -74,12 +81,19 @@ class TasksControllerHeaderView: UIStackView {
         return title
     }
     
+    fileprivate var progressBar:UIView = {
+        let l = MNLabel(customFont: .ProximaNovaLight, withSize: 18)
+        l.layer.cornerRadius = 4
+        l.layer.masksToBounds = true
+        l.backgroundColor = UIColor.MNGreen
+        l.translatesAutoresizingMaskIntoConstraints = false
+        //        l.drawText(in: UIEdgeInsetsInsetRect(l.frame, UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)))
+        return l
+    }()
+    
     
     var hmm:Double = 0.0
     
-    
-
-
     var totalPercent:Double {
         set {
             self.hmm = newValue
@@ -90,16 +104,17 @@ class TasksControllerHeaderView: UIStackView {
         }
     }
     
-    fileprivate var progressBar:UIView = {
-        let l = MNLabel(customFont: .ProximaNovaLight, withSize: 18)
-        l.layer.cornerRadius = 4
-        l.layer.masksToBounds = true
-        l.backgroundColor = UIColor.MNGreen
-        l.translatesAutoresizingMaskIntoConstraints = false
-//        l.drawText(in: UIEdgeInsetsInsetRect(l.frame, UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)))
-        return l
-    }()
     
+    var barDelegate:TaskProtocol {
+        get {
+            return bar.deli
+        }
+        set {
+            bar.deli = newValue
+        }
+    }
+
+
 
 
 }

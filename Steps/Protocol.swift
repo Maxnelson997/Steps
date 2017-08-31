@@ -11,3 +11,8 @@ import UIKit
 protocol StepProtocol {
     func SetStepStatus(at: Int, status: Bool)
 }
+
+protocol TaskProtocol {
+    func InsertTask()
+    func RemoveTask()
+}

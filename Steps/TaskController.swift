@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
+class TaskController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, TaskProtocol {
     
     let model = Model.modelInstance
 
@@ -26,6 +26,7 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
         cv.layer.borderColor = UIColor.darkGray.cgColor
         cv.register(TaskCell.self, forCellWithReuseIdentifier: "TaskCell")
         cv.backgroundColor = .clear
+//        cv.register(TaskCollectionHeaderView.self, forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: "TasksHeader")
         return cv
     }()
     
@@ -47,7 +48,7 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
 
     
     fileprivate lazy var viewStack:UIStackView = {
-        let s = UIStackView(arrangedSubviews: [self.taskHeader, self.space, self.tasksCollection])
+        let s = UIStackView(arrangedSubviews: [self.taskHeader, self.tasksCollection])
         s.axis = .vertical
         s.backgroundColor = .clear
         s.translatesAutoresizingMaskIntoConstraints = false
@@ -60,6 +61,7 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
 
         t = TasksControllerHeaderView()
+        t.barDelegate = self
         taskHeader.addSubview(t)
         NSLayoutConstraint.activate(t.getConstraintsTo(view: taskHeader, withInsets: UIEdgeInsetsMake(0, 10, 0, 10)))
         
@@ -67,10 +69,11 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
         view.backgroundColor = UIColor.init(rgb: 0x232323)
         view.addSubview(mainCollection)
         NSLayoutConstraint.activate(mainCollection.getConstraintsTo(view: view, withInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)))
+
         mainCollection.delegate = self
         mainCollection.dataSource = self
         
-        taskHeader.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.AddTask)))
+        
         
     }
 
@@ -117,7 +120,7 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == mainCollection {
             if indexPath.item == 0 {
-                return CGSize(width: collectionView.frame.width, height: collectionView.frame.height * 0.15)
+                return CGSize(width: collectionView.frame.width, height: collectionView.frame.height * 0.2)
             }
             return CGSize(width: collectionView.frame.width, height: 250) // + (CGFloat(model.tasks.count * 125))
         }
@@ -128,7 +131,9 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
         (UIApplication.shared.delegate as! AppDelegate).NavigateToTaskSteps(taskIndex: indexPath.item)
     }
     
-    
+    func RemoveTask() {
+        print("hmm")
+    }
     //insertion and deletion
     func DeleteTask(at:Int) {
         let indexPath = IndexPath(item: at, section: 0)
@@ -140,7 +145,7 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
         })
     }
     
-    func AddTask() {
+    func InsertTask() {
         model.tasks.append(TaskModel(isMarked: false, percentComplete: 0, stepsComplete: "0", title: "Task #\(model.tasks.count)", isComplete: false, steps: []))
 
         let indexPath = IndexPath(item: model.tasks.count - 1, section: 0)
@@ -161,8 +166,31 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
             totalSteps += Double(task.steps.count)
         }
         t.totalPercent = (totalStepsComplete / totalSteps) * 100.0
-       
     }
+    
+    
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        if collectionView == tasksCollection {
+//            switch kind {
+//            case UICollectionElementKindSectionHeader:
+//                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TasksHeader", for: indexPath) as! TaskCollectionHeaderView
+//                header.awakeFromNib()
+//                return header
+//            default:
+//                break
+//            }
+//        }
+//        return UICollectionReusableView()
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        if collectionView == tasksCollection {
+//            return CGSize(width: collectionView.frame.width - 20, height: 55)
+//        }
+//        return .zero
+//    }
+//    
+    
     
 //    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 //        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: .curveEaseIn, animations: {
