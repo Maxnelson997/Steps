@@ -45,11 +45,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Steps/StepCell.swift"
-            timestampString = "525830610.884996"
+            timestampString = "526364174.594034"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "completeTap()"
             landmarkType = "7">
          </BreakpointContent>

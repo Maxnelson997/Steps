@@ -104,7 +104,7 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
         
         UIView.animate(withDuration: 0.3, animations: {
             if self.model.tasks[self.taskIndex].percentComplete == 1 {
-                self.headerView.percentageColor = UIColor.MNGreen
+                self.headerView.percentageColor = self.model.tasks[self.taskIndex].color
             } else {
                 self.headerView.percentageColor = UIColor.white
             }
@@ -129,6 +129,7 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
         cell.textDelegate = self
         cell.tag = indexPath.item
         cell.backgroundColor = UIColor.MNGray
+        cell.colorToUse = model.tasks[taskIndex].color
         cell.awakeFromNib()
         return cell
     }

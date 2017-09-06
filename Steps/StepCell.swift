@@ -25,7 +25,7 @@ class StepCell:UICollectionViewCell {
     }
     
     var step:StepModel!
-    
+    var colorToUse:UIColor!
     fileprivate var bubbleContainer:UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +73,7 @@ class StepCell:UICollectionViewCell {
     override func awakeFromNib() {
         stepTitle.text = step.title
         tapped = step.isComplete
+        completeBubble.setFAColor(color: colorToUse)
         stepTitle.tag = self.tag
         if tapped == true {
             self.layer.masksToBounds = true

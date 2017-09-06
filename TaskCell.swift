@@ -74,6 +74,7 @@ class TaskCell: UICollectionViewCell {
             task.percentComplete = 0
         }
         taskHeaderView.progressGroup.ring1StartColor = task.color
+        taskHeaderView.progressGroup.ring1EndColor = task.color
         
         taskHeaderView.completionPercent = task.percentComplete
         if !exists {
