@@ -56,6 +56,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         currentTaskController = controller
     }
     
+    func NavigateToNewTaskController() {
+        let controller = NewTaskFormController()
+        controller.navigationItem.titleView = makeTitle(titleText: "New Task")
+        controller.navigationItem.leftBarButtonItem = barButton(icon: .FAArrowLeft, selector: #selector(self.cancelNewTask))
+        controller.navigationItem.rightBarButtonItem = barButton(icon: .FAThumbsUp, selector: #selector(self.createNewTask))
+        taskNavItem.pushViewController(controller, animated: true)
+        currentNewTaskController = controller
+    }
+    
+    func cancelNewTask() {
+        taskNavItem.popViewController(animated: true)
+    }
+    
+    func createNewTask() {
+        taskNavItem.popViewController(animated: true)
+        taskController.InsertTask(withTitle: currentNewTaskController.taskTitle, withColor: currentNewTaskController.colors[currentNewTaskController.selectedColorIndex])
+    }
+    
     func insertStep() {
         currentTaskController.InsertStep()
     }
@@ -73,6 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var taskController:TaskController!
     var taskNavItem:UINavigationController!
     var currentTaskController:TaskStepsController!
+    var currentNewTaskController:NewTaskFormController!
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

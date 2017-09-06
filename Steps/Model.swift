@@ -12,31 +12,8 @@ class Model {
     static let modelInstance = Model()
     private init() {}
     
-//    var tasks:[TaskModel] = [
-//        TaskModel(isMarked: false, percentComplete: 26, stepsComplete: "2", title: "ok we gettin somewhere..", isComplete: false, steps: [StepModel(title: "step one", isComplete: false),StepModel(title: "step two", isComplete: false)]),
-//        TaskModel(isMarked: false, percentComplete: 74, stepsComplete: "6", title: "ok finally", isComplete: false, steps: [StepModel(title: "step juan", isComplete: false),StepModel(title: "step of two", isComplete: false)])
-//    ]
-//    
 
     var tasks:[TaskModel] = []
-    
-
-    
-//    
-//    struct TaskModel {
-//        var isMarked:Bool!
-//        var percentComplete:String!
-//        
-//        var stepsComplete:String!
-//        var title:String!
-//        
-//        var isComplete:Bool!
-//        var steps:[StepModel]!
-//    }
-//    
-//    struct StepModel {
-//        var title:String!
-//        var isComplete:Bool!
-//    }
-
+    var tasksIncomplete:[TaskModel] = []
+    var tasksComplete:[TaskModel] = []
 }

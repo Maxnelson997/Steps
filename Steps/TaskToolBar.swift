@@ -23,7 +23,7 @@ import UIKit
 
 class TaskToolBar:UIToolbar {
     
-    func add() {deli.InsertTask()}
+    func add() {deli.NewTaskController()}
     func remove() {deli.RemoveTask()}
     
     var deli:TaskProtocol!

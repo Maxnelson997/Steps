@@ -17,6 +17,8 @@ struct TaskModel {
     
     var isComplete:Bool!
     var steps:[StepModel]!
+    
+    var color:UIColor!
 }
 
 struct StepModel {

@@ -17,8 +17,10 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
         currentTextField.resignFirstResponder()
     }
     
+    
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        
+        textField.moveTextField(inView: self.view, moveDistance: 150, up: true)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.spellCheckingType = .no
@@ -36,6 +38,7 @@ class TaskStepsController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.moveTextField(inView: self.view, moveDistance: 150, up: false)
         textField.layer.cornerRadius = 0
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: .curveEaseIn, animations: {
             var transform = CGAffineTransform.identity

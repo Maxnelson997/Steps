@@ -13,6 +13,7 @@ protocol StepProtocol {
 }
 
 protocol TaskProtocol {
-    func InsertTask()
+    func NewTaskController()
+    func InsertTask(withTitle:String, withColor:UIColor)
     func RemoveTask()
 }

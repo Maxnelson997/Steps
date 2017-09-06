@@ -64,7 +64,8 @@ class TaskHeaderView: UIStackView {
         progressGroup.addSubview(percentage)
         
         markedButton.addSubview(actualMarkedButton)
-        actualMarkedButton.addTarget(self, action: #selector(self.animateMarking), for: .touchUpInside)
+//        actualMarkedButton.isUserInteractionEnabled = false
+//        actualMarkedButton.addTarget(self, action: #selector(self.animateMarking), for: .touchUpInside)
         NSLayoutConstraint.activate([actualMarkedButton.rightAnchor.constraint(equalTo: markedButton.rightAnchor, constant: -5), actualMarkedButton.topAnchor.constraint(equalTo: markedButton.topAnchor, constant: 5), actualMarkedButton.widthAnchor.constraint(equalToConstant: 30), actualMarkedButton.heightAnchor.constraint(equalToConstant: 15)])
        
 

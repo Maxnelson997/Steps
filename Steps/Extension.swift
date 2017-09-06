@@ -38,7 +38,9 @@ extension UIColor {
     open class var MNOriginalDarkGray: UIColor { return UIColor.init(rgb: 0x232323) }
     open class var MNGreen: UIColor { return UIColor.init(rgb: 0x5CFF90) }
     open class var MNBlue: UIColor { return UIColor.init(rgb: 0x7ECDFD) }
-    open class var MNTextGray: UIColor { return UIColor.init(rgb: 0xFEFDFE) } 
+    open class var MNTextGray: UIColor { return UIColor.init(rgb: 0xFEFDFE) }
+    open class var MNMagenta: UIColor { return UIColor.init(rgb: 0xEC34FF) }
+    
 
     convenience init(red: Int, green: Int, blue: Int) {
         assert(red >= 0 && red <= 255, "Invalid red component")

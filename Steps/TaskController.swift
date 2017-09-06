@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 class TaskController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, TaskProtocol {
     
@@ -59,7 +60,10 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
     var space:UIView = UIView()
 
     override func viewDidLoad() {
+
         super.viewDidLoad()
+        
+
 
         t = TasksControllerHeaderView()
         t.barDelegate = self
@@ -69,7 +73,7 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
         mainCollection.backgroundColor = UIColor.init(rgb: 0x232323)
         view.backgroundColor = UIColor.init(rgb: 0x232323)
         view.addSubview(mainCollection)
-        NSLayoutConstraint.activate(mainCollection.getConstraintsTo(view: view, withInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)))
+        NSLayoutConstraint.activate(mainCollection.getConstraintsTo(view: view, withInsets: UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)))
 
         mainCollection.delegate = self
         mainCollection.dataSource = self
@@ -88,6 +92,9 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
         return model.tasks.count
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if collectionView == tasksCollection {
+            return 1
+        }
         return 1
     }
     
@@ -105,7 +112,7 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
             if !cell.exists {
                 cell.awakeFromNib()
                 cell.contentView.addSubview(tasksCollection)
-                NSLayoutConstraint.activate(tasksCollection.getConstraintsTo(view: cell.contentView, withInsets: UIEdgeInsetsMake(10, 0, 0, 0)))
+                NSLayoutConstraint.activate(tasksCollection.getConstraintsTo(view: cell.contentView, withInsets: UIEdgeInsetsMake(10, 0, 10, 0)))
                 tasksCollection.delegate = self
                 tasksCollection.dataSource = self
             }
@@ -114,7 +121,13 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TaskCell", for: indexPath) as! TaskCell
         cell.task = model.tasks[indexPath.row]
         cell.awakeFromNib()
+        cell.taskHeaderView.actualMarkedButton.tag = indexPath.row
+        cell.taskHeaderView.actualMarkedButton.addTarget(self, action: #selector(self.DeleteTask(sender:)), for: .touchUpInside)
+
+        
         cell.isShakey = self.isRemovingCells
+        
+        
         if self.isRemovingCells {
             cell.recurseAnimation()
             UIView.animate(withDuration: 0.3, animations: {
@@ -140,15 +153,15 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == mainCollection {
             if indexPath.item == 0 {
-                return CGSize(width: collectionView.frame.width, height: collectionView.frame.height * 0.2)
+                return CGSize(width: collectionView.frame.width, height: collectionView.frame.height * 0.21)
             }
-            return CGSize(width: collectionView.frame.width, height: 135) // + (CGFloat(model.tasks.count * 125))
+            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height * 0.79) // + (CGFloat(model.tasks.count * 125))
         }
         return CGSize(width: 190, height: 135)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == tasksCollection {
+        if collectionView == tasksCollection && self.isRemovingCells == false {
             (UIApplication.shared.delegate as! AppDelegate).NavigateToTaskSteps(taskIndex: indexPath.item)
         }
     }
@@ -162,18 +175,26 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
         //reload data to show or remove shakey animation
     }
     //insertion and deletion
-    func DeleteTask(at:Int) {
-        let indexPath = IndexPath(item: at, section: 0)
-        model.tasks.remove(at: at)
-        tasksCollection.performBatchUpdates({
-            self.tasksCollection.deleteItems(at: [indexPath])
-        }, completion: { finished in
-            self.tasksCollection.reloadData()
-        })
+    func DeleteTask(sender:UIButton) {
+        if self.isRemovingCells == true {
+            let atTag = sender.tag
+            let indexPath = IndexPath(item: atTag, section: 0)
+            model.tasks.remove(at: atTag)
+            tasksCollection.performBatchUpdates({
+                self.tasksCollection.deleteItems(at: [indexPath])
+            }, completion: { finished in
+                self.tasksCollection.reloadData()
+            })
+        }
+
     }
     
-    func InsertTask() {
-        model.tasks.append(TaskModel(isMarked: false, percentComplete: 0, stepsComplete: "0", title: "Task #\(model.tasks.count)", isComplete: false, steps: []))
+    func NewTaskController() {
+        (UIApplication.shared.delegate as! AppDelegate).NavigateToNewTaskController()
+    }
+    
+    func InsertTask(withTitle:String, withColor:UIColor) {
+        model.tasks.append(TaskModel(isMarked: false, percentComplete: 0, stepsComplete: "0", title: withTitle, isComplete: false, steps: [], color: withColor))
 
         let indexPath = IndexPath(item: model.tasks.count - 1, section: 0)
         tasksCollection.performBatchUpdates({
@@ -186,6 +207,7 @@ class TaskController: UIViewController, UICollectionViewDataSource, UICollection
     
     func updateCollection() {
         tasksCollection.reloadData()
+  
         var totalStepsComplete:Double = 0
         var totalSteps:Double = 0
         for task in model.tasks {

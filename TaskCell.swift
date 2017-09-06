@@ -22,33 +22,23 @@ class TaskCell: UICollectionViewCell {
     
     var isShakey:Bool = false
     func recurseAnimation() {
-        
-        UIView.animate(withDuration: 0.5, animations: {
-//            self.transform = CGAffineTransform(rotationAngle: 350)
-            self.taskHeaderView.progressGroup.transform = CGAffineTransform(translationX: -10, y: 0)
-            self.taskHeaderView.percentage.transform = CGAffineTransform(translationX: -10, y: 0)
-            self.stepsLabel.transform  = CGAffineTransform(translationX: -10, y: 0)
-            self.taskTitle.transform  = CGAffineTransform(translationX: -10, y: 0)
+        UIView.animate(withDuration: 0.5, delay: 0, options: .allowUserInteraction, animations: {
+            self.transform = CGAffineTransform(translationX: -10, y: 0)
         }, completion: { finished in
-            UIView.animate(withDuration: 0.5, animations: {
-//                self.transform = CGAffineTransform(rotationAngle: 370)
-                self.taskHeaderView.percentage.transform  = CGAffineTransform(translationX: 10, y: 0)
-                self.taskHeaderView.progressGroup.transform  = CGAffineTransform(translationX: 10, y: 0)
-                self.stepsLabel.transform  = CGAffineTransform(translationX: 10, y: 0)
-                self.taskTitle.transform  = CGAffineTransform(translationX: 10, y: 0)
-                
+            UIView.animate(withDuration: 0.5, delay: 0, options: .allowUserInteraction, animations: {
+                self.transform = CGAffineTransform(translationX: 10, y: 0)
+
             }, completion: { finished in
                 if self.isShakey {
                     self.recurseAnimation()
                 } else {
-//                    self.transform = CGAffineTransform(rotationAngle: -180)
-                    self.taskHeaderView.progressGroup.transform  = CGAffineTransform(translationX: 0, y: 0)
-                    self.taskHeaderView.percentage.transform  = CGAffineTransform(translationX: 0, y: 0)
-                    self.stepsLabel.transform  = CGAffineTransform(translationX: 0, y: 0)
-                    self.taskTitle.transform  = CGAffineTransform(translationX: 0, y: 0)
+                    //                    self.transform = CGAffineTransform(rotationAngle: -180)
+                    self.transform = CGAffineTransform(translationX: 0, y: 0)
+
                 }
             })
         })
+
     }
     
     var taskHeaderView:TaskHeaderView = TaskHeaderView()
@@ -83,7 +73,8 @@ class TaskCell: UICollectionViewCell {
         } else {
             task.percentComplete = 0
         }
-
+        taskHeaderView.progressGroup.ring1StartColor = task.color
+        
         taskHeaderView.completionPercent = task.percentComplete
         if !exists {
             exists = true
