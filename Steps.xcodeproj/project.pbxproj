@@ -10,6 +10,8 @@
 		47480954BA42BFEDF386F924 /* Pods_StepsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC262F0EB59E42AE3AD75A6 /* Pods_StepsTests.framework */; };
 		792FC3EB1F578F6500F96A30 /* StepLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792FC3EA1F578F6500F96A30 /* StepLayout.swift */; };
 		792FC3EE1F57916400F96A30 /* TaskToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792FC3ED1F57916400F96A30 /* TaskToolBar.swift */; };
+		793204D81F5FAEC800D4EA3B /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793204D71F5FAEC800D4EA3B /* ProfileController.swift */; };
+		793204DA1F5FAEDF00D4EA3B /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793204D91F5FAEDF00D4EA3B /* SettingsController.swift */; };
 		7935BCA61F55C4710077E1E5 /* TaskLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7935BCA51F55C4710077E1E5 /* TaskLayout.swift */; };
 		794450421F523B7100AF39F9 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794450411F523B7100AF39F9 /* TaskHeaderView.swift */; };
 		794450471F524ED900AF39F9 /* MKRingProgressGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794450431F524ED900AF39F9 /* MKRingProgressGroupView.swift */; };
@@ -73,6 +75,8 @@
 		6BC262F0EB59E42AE3AD75A6 /* Pods_StepsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StepsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		792FC3EA1F578F6500F96A30 /* StepLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepLayout.swift; sourceTree = "<group>"; };
 		792FC3ED1F57916400F96A30 /* TaskToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskToolBar.swift; sourceTree = "<group>"; };
+		793204D71F5FAEC800D4EA3B /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		793204D91F5FAEDF00D4EA3B /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		7935BCA51F55C4710077E1E5 /* TaskLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskLayout.swift; sourceTree = "<group>"; };
 		794450411F523B7100AF39F9 /* TaskHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
 		794450431F524ED900AF39F9 /* MKRingProgressGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKRingProgressGroupView.swift; sourceTree = "<group>"; };
@@ -291,6 +295,8 @@
 				7987A9891F50C0EA005D9652 /* TaskController.swift */,
 				79E91AD81F55CA5900AF4BB2 /* TaskStepsController.swift */,
 				79FF33761F58734600BA98D9 /* NewTaskFormController.swift */,
+				793204D71F5FAEC800D4EA3B /* ProfileController.swift */,
+				793204D91F5FAEDF00D4EA3B /* SettingsController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -637,6 +643,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				793204D81F5FAEC800D4EA3B /* ProfileController.swift in Sources */,
 				79CD85871F5125470080F2F2 /* Model.swift in Sources */,
 				794450481F524ED900AF39F9 /* MKGradientGenerator.swift in Sources */,
 				7987A98A1F50C0EA005D9652 /* TaskController.swift in Sources */,
@@ -650,6 +657,7 @@
 				792FC3EB1F578F6500F96A30 /* StepLayout.swift in Sources */,
 				794450471F524ED900AF39F9 /* MKRingProgressGroupView.swift in Sources */,
 				79FF33771F58734600BA98D9 /* NewTaskFormController.swift in Sources */,
+				793204DA1F5FAEDF00D4EA3B /* SettingsController.swift in Sources */,
 				794450491F524ED900AF39F9 /* MKRingProgressView.swift in Sources */,
 				7987A9881F50C0EA005D9652 /* AppDelegate.swift in Sources */,
 				79E91AD91F55CA5900AF4BB2 /* TaskStepsController.swift in Sources */,

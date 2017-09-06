@@ -18,19 +18,26 @@ class NewTaskFormController:UIViewController, UICollectionViewDelegateFlowLayout
             textField.transform = transform
             self.colorLabel.alpha = 0.1
             self.colorCollection.alpha = 0.1
-            self.titleLabel.alpha = 0
+//            self.titleLabel.alpha = 0
+            self.colorLabel.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            self.colorCollection.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            self.doneButton.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            self.doneButton.alpha = 1
+            self.navigationController?.navigationBar.isHidden = true
+            self.navigationController?.navigationBar.alpha = 0
         }, completion: { finished in
-            self.titleLabel.text = "Editing Task Name"
-            UIView.animate(withDuration: 0.3, animations: {
-                self.titleLabel.alpha = 1
-            })
+//            self.titleLabel.text = "Editing Task Name"
+//            UIView.animate(withDuration: 0.3, animations: {
+//                self.titleLabel.alpha = 1
+//            })
         })
      
-        viewStack.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissBox)))
-//        textField.moveTextField(inView: self.viewStack, moveDistance: 60, up: false)
+        
+        textField.moveTextField(inView: self.viewStack, moveDistance: 55, up: true)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+ 
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 4, options: .curveEaseIn, animations: {
             var transform = CGAffineTransform.identity
             transform = transform.scaledBy(x: 1, y: 1)
@@ -38,16 +45,24 @@ class NewTaskFormController:UIViewController, UICollectionViewDelegateFlowLayout
             textField.transform = transform
             self.colorLabel.alpha = 1
             self.colorCollection.alpha = 1
-            self.titleLabel.alpha = 0
+//            self.titleLabel.alpha = 0
+            self.colorLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.colorCollection.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.doneButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.doneButton.alpha = 0
+           
         }, completion: { finished in
-            self.titleLabel.text = "Task Name"
-            UIView.animate(withDuration: 0.3, animations: {
-                self.titleLabel.alpha = 1
-            })
+        
+                self.navigationController?.navigationBar.isHidden = false
+             self.navigationController?.navigationBar.alpha = 1
+//            self.titleLabel.text = "Task Name"
+//            UIView.animate(withDuration: 0.3, animations: {
+//                self.titleLabel.alpha = 1
+//            })
         })
 
-        viewStack.removeGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissBox)))
-//        textField.moveTextField(inView: self.viewStack, moveDistance: 60, up: true)
+        
+        textField.moveTextField(inView: self.viewStack, moveDistance: 55, up: false)
     }
     
     
@@ -112,6 +127,23 @@ class NewTaskFormController:UIViewController, UICollectionViewDelegateFlowLayout
         return cv
     }()
     
+    var doneButton:UIButton = {
+        let b = UIButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.layer.masksToBounds = true
+        b.layer.cornerRadius = 4
+        b.setFAIcon(icon: .FAThumbsUp, forState: .normal)
+        b.alpha = 0
+        return b
+    }()
+    
+    var textBoxDoneButtonStack:UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .horizontal
+        return stack
+    }()
+    
     func dismissBox() {
         titleBox.resignFirstResponder()
     }
@@ -120,42 +152,41 @@ class NewTaskFormController:UIViewController, UICollectionViewDelegateFlowLayout
     
     
     override func viewDidLoad() {
+
+        doneButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissBox)))
         
         colorCollection.delegate = self
         colorCollection.dataSource = self
         
         titleBox.delegate = self
         
-        
-        
+        textBoxDoneButtonStack.insertArrangedSubview(titleBox, at: 0)
+        textBoxDoneButtonStack.insertArrangedSubview(doneButton, at: 1)
 
         viewStack.insertArrangedSubview(titleLabel, at: 0)
-        viewStack.insertArrangedSubview(titleBox, at: 1)
+        viewStack.insertArrangedSubview(textBoxDoneButtonStack, at: 1)
         viewStack.insertArrangedSubview(colorLabel, at: 2)
         viewStack.insertArrangedSubview(colorCollection, at: 3)
         
         view.backgroundColor = UIColor.MNDarkGray
         view.addSubview(viewStack)
-        
     
-        
         NSLayoutConstraint.activate([
             viewStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
             viewStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
             viewStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             viewStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
-            
-            
             ])
         
         NSLayoutConstraint.activate([
             titleLabel.heightAnchor.constraint(equalToConstant: 70),
-            titleBox.heightAnchor.constraint(equalToConstant: 60),
+            textBoxDoneButtonStack.heightAnchor.constraint(equalToConstant: 60),
             colorLabel.heightAnchor.constraint(equalToConstant: 70),
             colorCollection.heightAnchor.constraint(equalToConstant: 300),
             
-
-            
+            doneButton.widthAnchor.constraint(equalToConstant: 80),
+//            doneButton.heightAnchor.constraint(equalToConstant: <#T##CGFloat#>)
+        
             ])
         
         
@@ -188,6 +219,22 @@ class NewTaskFormController:UIViewController, UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedColorIndex = indexPath.item
+        let cell = collectionView.cellForItem(at: indexPath)
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 4, options: .curveEaseIn, animations: {
+            var transform = CGAffineTransform.identity
+            transform = transform.scaledBy(x: 0.65, y: 0.65)
+            transform = transform.rotated(by: 5)
+//            transform.rotate
+            cell?.transform = transform
+        }, completion: { finished in
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 4, options: .curveEaseIn, animations: {
+                var transform = CGAffineTransform.identity
+                transform = transform.scaledBy(x: 1, y: 1)
+                transform = transform.rotated(by: 0)
+                cell?.transform = transform
+            }, completion: nil)
+
+        })
         changeColors()
     }
     

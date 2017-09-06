@@ -59,13 +59,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func NavigateToNewTaskController() {
         let controller = NewTaskFormController()
         controller.navigationItem.titleView = makeTitle(titleText: "New Task")
-        controller.navigationItem.leftBarButtonItem = barButton(icon: .FAArrowLeft, selector: #selector(self.cancelNewTask))
+        controller.navigationItem.leftBarButtonItem = barButton(icon: .FAArrowLeft, selector: #selector(self.back))
         controller.navigationItem.rightBarButtonItem = barButton(icon: .FAThumbsUp, selector: #selector(self.createNewTask))
         taskNavItem.pushViewController(controller, animated: true)
         currentNewTaskController = controller
     }
     
-    func cancelNewTask() {
+    func NavigateToProfileController() {
+        let controller = ProfileController()
+        controller.navigationItem.titleView = makeTitle(titleText: "Your Profile")
+        controller.navigationItem.leftBarButtonItem = barButton(icon: .FAArrowLeft, selector: #selector(self.back))
+        controller.navigationItem.rightBarButtonItem = barButton(icon: .FAThumbsUp, selector: #selector(self.confirmProfileChanges))
+//        let transition = CATransition()
+//        transition.duration = 0.5
+//        transition.type = kCATransitionPush
+//        transition.subtype = kCATransitionFromLeft
+//        taskNavItem.view.window!.layer.add(transition, forKey: kCATransition)
+        taskNavItem.pushViewController(controller, animated: true)
+    }
+    
+    func NavigateToSettingsController() {
+        let controller = SettingsController()
+        controller.navigationItem.titleView = makeTitle(titleText: "Settings")
+        controller.navigationItem.leftBarButtonItem = barButton(icon: .FAArrowLeft, selector: #selector(self.back))
+        controller.navigationItem.rightBarButtonItem = barButton(icon: .FAThumbsUp, selector: #selector(self.confirmSettings))
+        taskNavItem.pushViewController(controller, animated: true)
+        
+    }
+    
+    func confirmSettings() {
+        
+    }
+    
+    func confirmProfileChanges() {
+        
+    }
+    
+    func back() {
         taskNavItem.popViewController(animated: true)
     }
     
@@ -95,12 +125,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
+        let userImage = UIImageView(image: #imageLiteral(resourceName: "user"), rect: CGRect(x: 0, y: 0, width: 26, height: 26))
+        let cogImage = UIImageView(image: #imageLiteral(resourceName: "cogwheel-outline"), rect: CGRect(x: 0, y: 0, width: 26, height: 26))
+        userImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.NavigateToProfileController)))
+        cogImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.NavigateToSettingsController)))
+        
         taskController = TaskController()
         taskController.navigationItem.titleView = makeTitle(titleText: "Tasks")
-        taskController.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: #imageLiteral(resourceName: "user"), rect: CGRect(x: 0, y: 0, width: 26, height: 26)))//makeNavTextButton(text: "Edit")
-        taskController.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: UIImageView(image: #imageLiteral(resourceName: "cogwheel-outline"), rect: CGRect(x: 0, y: 0, width: 26, height: 26)))
-        
+        taskController.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: userImage)//makeNavTextButton(text: "Edit")
+        taskController.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cogImage)
+
         taskNavItem = UINavigationController(rootViewController: taskController)
         taskNavItem.tabBarItem.setFAIcon(icon: .FACircleO, size: nil, orientation: .up, textColor: UIColor.white, backgroundColor: UIColor.clear, selectedTextColor: UIColor.MNGreen.withAlphaComponent(1), selectedBackgroundColor: .clear)
         taskNavItem.tabBarItem.title = "Tasks"
